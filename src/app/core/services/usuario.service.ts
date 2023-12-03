@@ -21,5 +21,7 @@ export class UsuarioService {
     return this.http.post(`${this.api}/salvar`, usuario);
   }
 
-  
+  public editarUsuario(usuario: IUsuario){
+    return this.http.put(`${this.api}/editar`, usuario);
+  }
 }
