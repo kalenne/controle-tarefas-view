@@ -5,23 +5,21 @@ import { TarefaService } from 'src/app/core/services/tarefa.service';
 @Component({
   selector: 'app-tarefa',
   templateUrl: './tarefa.component.html',
-  styleUrls: ['./tarefa.component.css']
+  styleUrls: ['./tarefa.component.css'],
 })
 export class TarefaComponent implements OnInit {
-
   tarefaDados = [] as ITarefa[];
-
   usuarioMatricula: string = '';
 
-  constructor(private tarefaService: TarefaService) { }
+  constructor(private tarefaService: TarefaService) {}
 
-  ngOnInit(): void {
-  }
-  
+  ngOnInit(): void {}
+
   public retornaDadosPorMatricula(): void {
-    this.tarefaService.retornarTarefasPorMatricula(this.usuarioMatricula).subscribe(response => {
-      console.log(response)
-      this.tarefaDados = response;
-    })
+    if (this.usuarioMatricula) {
+      this.tarefaService
+        .retornarTarefasPorMatricula(this.usuarioMatricula)
+        .subscribe((response) => (this.tarefaDados = response.data));
+    }
   }
 }

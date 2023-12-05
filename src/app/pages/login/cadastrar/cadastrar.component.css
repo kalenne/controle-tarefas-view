@@ -1,11 +1,11 @@
-.login-container {
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
   }
 
-  .login-box {
+  .box {
     width: 600px; 
     padding: 20px;
     border: 1px solid #ccc; 

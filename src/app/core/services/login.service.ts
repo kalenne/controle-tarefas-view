@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ILogin } from '../interface/login';
 import { Observable } from 'rxjs'
-import { IResponse } from '../interface/response';
+import { IResponse, IToken } from '../interface/response';
 import { switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -15,12 +15,12 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  public autenticacao (usuario: ILogin): Observable<any> {
-    return this.http.post(this.api, usuario);
+  public autenticacao (usuario: ILogin): Observable<IResponse<IToken>> {
+    return this.http.post<IResponse<IToken>>(this.api, usuario);
   };
 
-  public usuarioAutenticado (token: string) : Observable<any> {
-    return this.http.get(`${this.api}/${token}`);
+  public usuarioAutenticado (token: string) : Observable<IResponse<string>> {
+    return this.http.get<IResponse<string>>(`${this.api}/${token}`);
   }
 
   

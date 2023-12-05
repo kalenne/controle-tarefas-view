@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUsuario } from '../interface/usuario';
 import { HttpClient } from '@angular/common/http';
+import { IResponse } from '../interface/response';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,19 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  public retornaUsuarioPorEmail(email: string | null): Observable<IUsuario> {
-    return this.http.get<IUsuario>(`${this.api}/e/${email}`);
+  public retornarUsuarioPorEmail(email: string | null): Observable<IResponse<IUsuario>> {
+    return this.http.get<IResponse<IUsuario>>(`${this.api}/e/${email}`);
   }
 
-  public salvarUsuario(usuario: IUsuario) {
-    return this.http.post(`${this.api}/salvar`, usuario);
+  public retornarUsuarioPorMatricula(matricula: string | null): Observable<IResponse<IUsuario>> {
+    return this.http.get<IResponse<IUsuario>>(`${this.api}/${matricula}`);
   }
 
-  public editarUsuario(usuario: IUsuario){
-    return this.http.put(`${this.api}/editar`, usuario);
+  public salvarUsuario(usuario: IUsuario):Observable<IUsuario> {
+    return this.http.post<IUsuario>(`${this.api}/salvar`, usuario);
+  }
+
+  public editarUsuario(usuario: IUsuario):Observable<IUsuario>{
+    return this.http.put<IUsuario>(`${this.api}/editar`, usuario);
   }
 }

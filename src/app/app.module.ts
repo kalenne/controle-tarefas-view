@@ -11,6 +11,7 @@ import { TarefaComponent } from './pages/tarefa/tarefa.component';
 import { InterceptorModule } from './core/modules/interceptor/interceptor.module';
 import { CpfPipe } from './core/pipes/cpf.pipe';
 import { CadastrarComponent } from './pages/login/cadastrar/cadastrar.component';
+import { CadastrarTarefaComponent } from './pages/tarefa/cadastrar-tarefa/cadastrar-tarefa.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CadastrarComponent } from './pages/login/cadastrar/cadastrar.component'
     UsuarioComponent,
     TarefaComponent,
     CpfPipe,
-    CadastrarComponent
+    CadastrarComponent,
+    CadastrarTarefaComponent
   ],
   imports: [
     BrowserModule,

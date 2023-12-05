@@ -1,4 +1,8 @@
-export interface IResponse {
-    data:Object,
-    errors: Array<string>
+export interface IResponse<T> {
+    data: T;
+    errors: string[];
+  }
+
+export interface IToken {
+    token: string
 }

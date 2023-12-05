@@ -15,12 +15,10 @@ export class UsuarioComponent implements OnInit {
   formGroup: FormGroup;
 
   constructor(private usuarioService: UsuarioService, private fb: FormBuilder) {
-    this.formGroup = this.fb.group(
-      {
-        dataNascimento: this.fb.control('', [Validators.required]),
-        nome: this.fb.control('', [Validators.required])
-      }
-    )
+    this.formGroup = this.fb.group({
+      dataNascimento: this.fb.control('', [Validators.required]),
+      nome: this.fb.control('', [Validators.required]),
+    });
   }
 
   ngOnInit(): void {
@@ -28,30 +26,28 @@ export class UsuarioComponent implements OnInit {
   }
 
   public getUsuario() {
-    if (sessionStorage.getItem('username')) {
-      const email = sessionStorage.getItem('username');
-
+    const email = sessionStorage.getItem('username');
+    if (email) {
       this.usuarioService
-        .retornaUsuarioPorEmail(email)
+        .retornarUsuarioPorEmail(email)
         .subscribe((response) => {
-          this.usuario = response;
+          this.usuario = response.data;
         });
     }
   }
 
-  public editarUsuario(){
+  public editarUsuario() {
     this.edit = !this.edit;
     this.formGroup.get('nome')?.patchValue(this.usuario.nome);
-    this.formGroup.get('dataNascimento')?.patchValue(this.usuario.dataNascimento);
+    this.formGroup
+      .get('dataNascimento')
+      ?.patchValue(this.usuario.dataNascimento);
   }
 
-  public salvarUsuarioEditado(){
-    if(this.formGroup.valid) {
-
-      this.usuario = {...this.usuario, ...this.formGroup.value};
+  public salvarUsuarioEditado() {
+    if (this.formGroup.valid) {
+      this.usuario = { ...this.usuario, ...this.formGroup.value };
       this.usuarioService.editarUsuario(this.usuario).subscribe();
     }
   }
 }
-
-

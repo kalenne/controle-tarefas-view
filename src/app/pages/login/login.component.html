@@ -6,12 +6,12 @@
     <form>
       <div class="form-outline mb-4">
           <label class="form-label" for="form2Example1">Email</label>
-          <input type="email" id="form2Example1" class="form-control" [(ngModel)]="usuario.email" name="email" />
+          <input type="email" class="form-control" [(ngModel)]="usuario.email" name="email" />
       </div>
 
       <div class="form-outline mb-4">
-          <label class="form-label" for="form2Example2">Senha</label>
-        <input type="password" id="form2Example2" class="form-control" [(ngModel)]="usuario.senha" name="senha" />
+          <label class="form-label">Senha</label>
+        <input type="password" class="form-control" [(ngModel)]="usuario.senha" name="senha" />
       </div>
 
       <div class="row mb-4">
@@ -21,11 +21,10 @@
             <input
               class="form-check-input"
               type="checkbox"
-              value=""
-              id="form2Example31"
+              value="" 
               checked
             />
-            <label class="form-check-label" for="form2Example31">
+            <label class="form-check-label">
               Lembre-me
             </label>
           </div>
