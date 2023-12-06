@@ -26,7 +26,7 @@ export class CadastrarTarefaComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public retornaUsuario() {
+  public retornarUsuario(): void {
     this.usuario.nome = '';
     let matricula = this.formGroup.value.matricula;
     if (matricula) {

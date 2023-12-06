@@ -22,10 +22,10 @@ export class UsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUsuario();
+    this.retornarUsuario();
   }
 
-  public getUsuario() {
+  public retornarUsuario() {
     const email = sessionStorage.getItem('username');
     if (email) {
       this.usuarioService
@@ -36,7 +36,7 @@ export class UsuarioComponent implements OnInit {
     }
   }
 
-  public editarUsuario() {
+  public editarUsuario(): void {
     this.edit = !this.edit;
     this.formGroup.get('nome')?.patchValue(this.usuario.nome);
     this.formGroup
@@ -44,7 +44,7 @@ export class UsuarioComponent implements OnInit {
       ?.patchValue(this.usuario.dataNascimento);
   }
 
-  public salvarUsuarioEditado() {
+  public salvarUsuarioEditado(): void {
     if (this.formGroup.valid) {
       this.usuario = { ...this.usuario, ...this.formGroup.value };
       this.usuarioService.editarUsuario(this.usuario).subscribe();
