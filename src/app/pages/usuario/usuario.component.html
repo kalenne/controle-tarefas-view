@@ -7,7 +7,7 @@
             <div class="row g-0">
               <div class="card-body p-4">
                 <div class="row pt-1">
-                  <h6 style="width: 75%">Informações</h6>
+                  <h2 style="width: 75%">Informações</h2>
                   <button
                     type="button"
                     class="btn"
@@ -20,7 +20,7 @@
                 <hr class="mt-0 mb-4" />
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
-                    <h6>Email</h6>
+                    <h3>Email</h3>
                     <p *ngIf="!edit" class="text-muted">{{ usuario.email }}</p>
                     <input
                       *ngIf="edit"
@@ -31,7 +31,7 @@
                     />
                   </div>
                   <div class="col-6 mb-3">
-                    <h6>CPF</h6>
+                    <h3>CPF</h3>
                     <p *ngIf="!edit" class="text-muted">{{ usuario.cpf | CPF }}</p>
                     <input
                       *ngIf="edit"
@@ -44,12 +44,12 @@
                 </div>
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
-                    <h6>Nome</h6>
+                    <h3>Nome</h3>
                     <p *ngIf="!edit" class="text-muted">{{ usuario.nome }}</p>
                     <input *ngIf="edit" class="form-control"  formControlName="nome">
                   </div>
                   <div class="col-6 mb-3">
-                    <h6>Data de Nascimento</h6>
+                    <h3>Data de Nascimento</h3>
                     <p *ngIf="!edit" class="text-muted">
                       {{ usuario.dataNascimento }}
                     </p>
@@ -59,10 +59,10 @@
                 </div>
                 <div class="row pt-1">
                   <div class="col-6 mb-3">
-                    <h6>Status</h6>
+                    <h3>Status</h3>
                     <p *ngIf="!edit" class="text-muted">{{ usuario.status }}</p>
                   </div>
-                  <div class="col-6 mb-3">
+                  <div class="col-6 mb-3 d-flex justify-content-end">
                     <button *ngIf="edit" type="button" (click)="salvarUsuarioEditado()" class="btn btn-primary">Enviar</button>
                   </div>
                 </div>

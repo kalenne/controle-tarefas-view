@@ -6,4 +6,5 @@ export interface IUsuario {
     status?: string,
     cpf: string,
     dataNascimento: string
+    matricula?: number
 }

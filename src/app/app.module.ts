@@ -12,6 +12,10 @@ import { InterceptorModule } from './core/modules/interceptor/interceptor.module
 import { CpfPipe } from './core/pipes/cpf.pipe';
 import { CadastrarComponent } from './pages/login/cadastrar/cadastrar.component';
 import { CadastrarTarefaComponent } from './pages/tarefa/cadastrar-tarefa/cadastrar-tarefa.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DisplayAlertComponent } from './components/displayalert/displayalert.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -22,7 +26,9 @@ import { CadastrarTarefaComponent } from './pages/tarefa/cadastrar-tarefa/cadast
     TarefaComponent,
     CpfPipe,
     CadastrarComponent,
-    CadastrarTarefaComponent
+    CadastrarTarefaComponent,
+    DisplayAlertComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,10 @@ import { CadastrarTarefaComponent } from './pages/tarefa/cadastrar-tarefa/cadast
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    InterceptorModule
+    InterceptorModule,
+    MatSnackBarModule,
+    BrowserAnimationsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

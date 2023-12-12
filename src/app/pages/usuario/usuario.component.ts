@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { IUsuario } from 'src/app/core/interface/usuario';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-usuario',
@@ -14,7 +16,7 @@ export class UsuarioComponent implements OnInit {
   edit: boolean = false;
   formGroup: FormGroup;
 
-  constructor(private usuarioService: UsuarioService, private fb: FormBuilder) {
+  constructor(private usuarioService: UsuarioService, private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.formGroup = this.fb.group({
       dataNascimento: this.fb.control('', [Validators.required]),
       nome: this.fb.control('', [Validators.required]),
@@ -32,7 +34,7 @@ export class UsuarioComponent implements OnInit {
         .retornarUsuarioPorEmail(email)
         .subscribe((response) => {
           this.usuario = response.data;
-        });
+        }, (err) => this.toastMessage("Autentique-se novamente!"));
     }
   }
 
@@ -48,6 +50,15 @@ export class UsuarioComponent implements OnInit {
     if (this.formGroup.valid) {
       this.usuario = { ...this.usuario, ...this.formGroup.value };
       this.usuarioService.editarUsuario(this.usuario).subscribe();
+    } else {
+      this.toastMessage("Dados Incompletos!");
     }
+  }
+
+  public toastMessage (message: string):void {
+    this.snackBar.openFromComponent(DisplayAlertComponent, {
+      duration: 3 * 1000,
+      data: message
+    })
   }
 }

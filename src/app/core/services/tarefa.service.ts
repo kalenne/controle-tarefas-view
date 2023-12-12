@@ -14,11 +14,11 @@ export class TarefaService {
 
   constructor(private http: HttpClient) { }
 
-  public retornarTarefasPorMatricula(matricula: string): Observable<IResponse<ITarefa[]>> {
+  public retornarTarefasPorMatricula(matricula: number | undefined): Observable<IResponse<ITarefa[]>> {
     return this.http.get<IResponse<ITarefa[]>>(`${this.api}/${matricula}`);
   }
 
-  public retornarTarefasAtivasPorMatricula(matricula: string): Observable<IResponse<ITarefa[]>> {
+  public retornarTarefasAtivasPorMatricula(matricula: number): Observable<IResponse<ITarefa[]>> {
     return this.http.get<IResponse<ITarefa[]>>(`${this.api}/${matricula}/ativa`);
   }
 

@@ -1,5 +1,21 @@
+<div class="box-container">
+  <div class="box-button d-flex">
+    <div class="col-6 d-flex justify-content-end p-2">
+      <button type="button" class="btn btn-primary btn-lg" (click)="loginNavegate()">Login</button>
+    </div>
+    <div class="col-6 p-2">
+      <button
+        type="button"
+        class="btn btn-primary btn-lg"    
+      >
+        Cadastrar
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
-  <div class="box">
+  <div class="box-body">
     <div class="text-center mx-auto p-2">
       <h2>Cadastrar</h2>
     </div>
@@ -60,15 +76,17 @@
         </div>
         <div class="d-flex justify-content-end">
           <button
+          id="btnEnviar"
             type="button"
             class="btn btn-primary btn-block mb-4 jus"
             (click)="cadastrarUsuario()"
-            style="width: 15%"
+            style="width: 20%"
           >
-            Entrar
+            Cadastrar
           </button>
         </div>
       </div>
     </form>
   </div>
 </div>
+
