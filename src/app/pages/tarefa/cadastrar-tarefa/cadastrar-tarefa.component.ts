@@ -11,7 +11,7 @@ import { DisplayAlertComponent } from 'src/app/components/displayalert/displayal
   templateUrl: './cadastrar-tarefa.component.html',
   styleUrls: ['./cadastrar-tarefa.component.css'],
 })
-export class CadastrarTarefaComponent implements OnInit {
+export class CadastrarTarefaComponent {
   usuario = {} as IUsuario;
   formGroup: FormGroup;
 
@@ -26,8 +26,6 @@ export class CadastrarTarefaComponent implements OnInit {
       descricao: this.fb.control('', [Validators.required]),
     });
   }
-
-  ngOnInit(): void {}
 
   public retornarUsuario(): void {
     this.usuario.nome = '';

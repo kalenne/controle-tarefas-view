@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { ITarefa } from 'src/app/core/interface/tarefa';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 
 @Component({
   selector: 'app-tarefa',
@@ -15,7 +16,12 @@ export class TarefaComponent implements OnInit {
   tarefaDados = [] as ITarefa[];
   usuarioMatricula: number | undefined;
 
-  constructor(private tarefaService: TarefaService, private usuarioService: UsuarioService, private router: Router) {}
+  constructor(
+    private tarefaService: TarefaService,
+    private usuarioService: UsuarioService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.retornarDadosDoUsuario();
@@ -23,21 +29,35 @@ export class TarefaComponent implements OnInit {
 
   public retornarDadosPorMatricula(): void {
     if (this.usuarioMatricula) {
-       this.tarefaService
+      this.tarefaService
         .retornarTarefasPorMatricula(this.usuarioMatricula)
-        .subscribe((response) => (this.tarefaDados = response.data));   
-      }
-
-  }
-
-  public retornarDadosDoUsuario():void  {
-    const usuario = sessionStorage.getItem("username");
-    if(usuario) {
-       this.usuarioService.retornarUsuarioPorEmail(usuario).subscribe(response => this.usuarioMatricula = response.data.matricula);
+        .subscribe(
+          (response) => (this.tarefaDados = response.data),
+          (err) => this.toastMessage(err.error.message)
+        );
+    } else {
+      
     }
   }
 
-  public cadastrarNavegate():void  {
-    this.router.navigate(['/cadastrar/tarefa'])
+  public retornarDadosDoUsuario(): void {
+    const usuario = sessionStorage.getItem('username');
+    if (usuario) {
+      this.usuarioService.retornarUsuarioPorEmail(usuario).subscribe(
+        (response) => (this.usuarioMatricula = response.data.matricula),
+        (err) => this.toastMessage(err.error.detalhes)
+      );
+    }
+  }
+
+  public cadastrarNavegate(): void {
+    this.router.navigate(['/cadastrar/tarefa']);
+  }
+
+  public toastMessage(message: string): void {
+    this.snackBar.openFromComponent(DisplayAlertComponent, {
+      duration: 3 * 1000,
+      data: message,
+    });
   }
 }

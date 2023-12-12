@@ -1,39 +1,68 @@
-<div class="card">
-    <div class="row mt-4">
-      <div class="col-6">
-        <input type="text" class="form-control" [(ngModel)]="usuarioMatricula">
-      </div>
-      <div class="col-6">
-        <button type="submit" class="btn btn-primary" (click)="retornarDadosPorMatricula()">Pesquisar</button>
-        <button type="submit" class="btn btn-primary" (click)="cadastrarNavegate()"><i class="bi bi-plus"></i></button>
-      </div>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-6">
+      <input type="text" class="form-control" [(ngModel)]="usuarioMatricula" />
     </div>
-    <div class="table-responsive">
-      <table class="table align-items-center mb-0">
-        <thead>
-          <tr>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Codigo</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Matricula</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nome</th>
-            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Descrição</th>
-            <th class="text-secondary opacity-7"></th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let tarefa of tarefaDados">
-          <tr>
-            <td>
-              {{tarefa.codigo}}
-            </td>      
-            <td>
-              {{tarefa.matricula}}
-            </td>      
-            <td>
-              {{tarefa.nomeUsuario}}
-            </td>      
-            <td>
-              {{tarefa.descricao}}
-            </td>      
-        </tbody>
-      </table>
+    <div class="col-6">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="retornarDadosPorMatricula()"
+      >
+        Pesquisar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="cadastrarNavegate()"
+      >
+        <i class="bi bi-plus"></i>
+      </button>
     </div>
   </div>
+</div>
+<div class="table-responsive mt-4 p-5">
+  <table class="table align-items-center justify-content-center mb-0">
+    <thead>
+      <tr>
+        <th
+          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+        >
+          Codigo
+        </th>
+        <th
+          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+        >
+          Matricula
+        </th>
+        <th
+          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+        >
+          Nome
+        </th>
+        <th
+          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+        >
+          Descrição
+        </th>
+        <th class="text-secondary opacity-7"></th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let tarefa of tarefaDados">
+      <tr>
+        <td>
+          {{ tarefa.codigo }}
+        </td>
+        <td>
+          {{ tarefa.matricula }}
+        </td>
+        <td>
+          {{ tarefa.nomeUsuario }}
+        </td>
+        <td>
+          {{ tarefa.descricao }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
