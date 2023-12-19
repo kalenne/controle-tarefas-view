@@ -10,6 +10,7 @@ import { DisplayAlertComponent } from 'src/app/components/displayalert/displayal
   selector: 'app-cadastrar',
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.css'],
+  providers: []
 })
 export class CadastrarComponent {
   formGroup: FormGroup;
@@ -18,7 +19,8 @@ export class CadastrarComponent {
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private route: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+
   ) {
     this.formGroup = this.fb.group({
       nome: this.fb.control('', [Validators.required]),
@@ -32,7 +34,7 @@ export class CadastrarComponent {
   public cadastrarUsuario(): void {
     if (this.formGroup.valid) {
       let request: IUsuario = {
-        ...this.formGroup.value,
+        ...this.formGroup.value
       };
       this.usuarioService.salvarUsuario(request).subscribe(() => {
         this.route.navigate(['/']);

@@ -34,6 +34,9 @@ export class UsuarioComponent implements OnInit {
         .retornarUsuarioPorEmail(email)
         .subscribe((response) => {
           this.usuario = response.data;
+          if(response.data.matricula !== undefined) {
+            sessionStorage.setItem('matricula', response.data.matricula?.toString());
+          }
         }, (err) => this.toastMessage("Autentique-se novamente!"));
     }
   }

@@ -36,21 +36,55 @@
             value="{{ usuario.nome }}"
           />
         </div>
-        <div class="d-flex justify-content-end">
-          <textarea
+        <div class="form-outline mb-4" style="width: 50%">
+          <label class="form-label">Autor</label
+          ><input
             class="form-control"
-            placeholder="Descricao"
-            formControlName="descricao"
-          ></textarea>
-          <button
-            type="button"
-            class="btn btn-primary btn-block mb-4 jus"
-            style="width: 15%"
-            (click)="salvarTarefa()"
-          >
-            Incluir
-          </button>
+            type="text"
+            disabled
+            readonly
+            value="{{ usuarioLogado }}"
+          />
         </div>
+      </div>
+      <div class="row">
+        <div class="form-outline mb-4" style="width: 50%">
+          <label class="form-label">Título</label>
+          <input class="form-control" formControlName="titulo">
+        </div>
+        <div class="form-outline mb-4"style="width: 50%">
+          <label class="form-label">Prioridade</label>
+          <input class="form-control" formControlName="prioridade">
+        </div>
+      </div>
+      <div class="form-outline mb-4">
+        <label class="form-label">Descrição</label>
+        <textarea
+          class="form-control"
+          placeholder="Descricao"
+          formControlName="descricao"
+        ></textarea>
+      </div>
+      <div class="row">
+        <div class="form-outline mb-4" style="width: 50%">
+          <label class="form-label">Data Inicio</label>
+          <input class="form-control" formControlName="dataInicio">
+        </div>
+        <div class="form-outline mb-4" style="width: 50%">
+          <label class="form-label">Data Final</label>
+          <input class="form-control" formControlName="dataFinal">
+        </div>
+      
+      </div>
+      <div class="row">
+        <button
+          type="button"
+          class="btn btn-primary btn-block mb-4 jus"
+          style="width: 15%"
+          (click)="salvarTarefa()"
+        >
+          Incluir
+        </button>
       </div>
     </form>
   </div>

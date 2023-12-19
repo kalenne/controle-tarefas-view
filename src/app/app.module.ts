@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,9 +13,9 @@ import { CpfPipe } from './core/pipes/cpf.pipe';
 import { CadastrarComponent } from './pages/login/cadastrar/cadastrar.component';
 import { CadastrarTarefaComponent } from './pages/tarefa/cadastrar-tarefa/cadastrar-tarefa.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from './components/displayalert/displayalert.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MaterialModule } from './core/modules/material/material.module';
 
 
 @NgModule({
@@ -37,11 +37,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FormsModule,
     ReactiveFormsModule,
     InterceptorModule,
-    MatSnackBarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
+
     
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -5,15 +5,19 @@ import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
+import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
+import { ITarefa } from 'src/app/core/interface/tarefa';
 
 @Component({
   selector: 'app-cadastrar-tarefa',
   templateUrl: './cadastrar-tarefa.component.html',
   styleUrls: ['./cadastrar-tarefa.component.css'],
 })
-export class CadastrarTarefaComponent {
+export class CadastrarTarefaComponent implements OnInit{
   usuario = {} as IUsuario;
   formGroup: FormGroup;
+  usuarioLogado: string = "";
+  matricula = sessionStorage.getItem('matricula');
 
   constructor(
     private usuarioService: UsuarioService,
@@ -21,10 +25,20 @@ export class CadastrarTarefaComponent {
     private fb: FormBuilder,
     private snackBar: MatSnackBar
   ) {
+    
     this.formGroup = this.fb.group({
       matricula: this.fb.control('', [Validators.required]),
       descricao: this.fb.control('', [Validators.required]),
+      prioridade: this.fb.control('', [Validators.required]),
+      dataInicio: this.fb.control('', [Validators.required]),
+      dataFinal: this.fb.control('', [Validators.required]),
+      titulo: this.fb.control('', [Validators.required]),
+      autor: this.fb.control('')
     });
+  }
+  ngOnInit(): void {
+    if(this.matricula)
+      this.usuarioLogado = this.matricula;
   }
 
   public retornarUsuario(): void {
@@ -40,8 +54,11 @@ export class CadastrarTarefaComponent {
   }
 
   public salvarTarefa(): void {
+    console.log(this.formGroup.value)
     if (this.formGroup.valid) {
-      let tarefa = this.formGroup.value;
+      let tarefa: ITarefa = this.formGroup.value;
+      tarefa.autor = this.usuarioLogado;
+      console.log(tarefa)
       this.tarefaService.salvarTarefa(tarefa).subscribe(() => this.toastMessage('Atividade cadastrada com sucesso!'),
       (err)=> this.toastMessage(err.error.datalhes));
     } else {
