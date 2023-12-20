@@ -5,6 +5,7 @@ export interface IUsuario {
     senha: string,
     status?: string,
     cpf: string,
-    dataNascimento: string
-    matricula?: number
+    dataNascimento: string,
+    matricula?: number,
+    roles?: string
 }

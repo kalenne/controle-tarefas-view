@@ -6,6 +6,7 @@ import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
+import { Roles } from 'src/app/enums/controle.enum';
 
 @Component({
   selector: 'app-tarefa',
@@ -15,16 +16,20 @@ import { DisplayAlertComponent } from 'src/app/components/displayalert/displayal
 export class TarefaComponent implements OnInit {
   tarefaDados = [] as ITarefa[];
   usuarioMatricula: number | undefined;
+  tipoUsuario = {} as Roles;
+  tipoUsuarioLogado = sessionStorage.getItem('role');
 
   constructor(
     private tarefaService: TarefaService,
     private usuarioService: UsuarioService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
     this.retornarDadosDoUsuario();
+    
+    
   }
 
   public retornarDadosPorMatricula(): void {
@@ -60,4 +65,12 @@ export class TarefaComponent implements OnInit {
       data: message,
     });
   }
+
+  public validarRole():boolean {
+    if( this.tipoUsuarioLogado === Roles.ROLE_ADMIN) {
+      return true;
+    }
+    return false;
+  }
+
 }

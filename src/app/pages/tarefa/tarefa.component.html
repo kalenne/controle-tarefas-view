@@ -1,17 +1,19 @@
 <div class="container">
   <div class="row mt-4">
     <div class="col-6">
-      <input type="text" class="form-control" [(ngModel)]="usuarioMatricula" />
+      <input type="text" class="form-control" [disabled]="!validarRole()" [(ngModel)]="usuarioMatricula"  />
     </div>
     <div class="col-6">
       <button
         type="submit"
         class="btn btn-primary"
         (click)="retornarDadosPorMatricula()"
+        
       >
         Pesquisar
       </button>
       <button
+      *ngIf="validarRole()"
         type="submit"
         class="btn btn-primary"
         (click)="cadastrarNavegate()"

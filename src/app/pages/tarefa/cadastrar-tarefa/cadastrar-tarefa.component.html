@@ -5,7 +5,7 @@
     </div>
     <form [formGroup]="formGroup">
       <div class="row">
-        <div class="form-outline mb-4" style="width: 75%">
+        <div class="col-6 form-outline mb-4">
           <label class="form-label">Matricula</label>
           <input
             type="text"
@@ -14,10 +14,11 @@
             formControlName="matricula"
           />
         </div>
-        <div class="form-outline mb-4" style="width: 15%">
+        <div class="col-6 d-flex  align-items-center " >
           <button
             type="submit"
-            class="btn btn-primary justify-items-center"
+            class="btn btn-primary"
+            style="width: 15%;"
             (click)="retornarUsuario()"
           >
             <i class="bi bi-search"></i>
@@ -26,7 +27,7 @@
       </div>
 
       <div class="row">
-        <div class="form-outline mb-4" style="width: 50%">
+        <div class="form-outline mb-4">
           <label class="form-label">Nome</label>
           <input
             class="form-control"
@@ -36,7 +37,7 @@
             value="{{ usuario.nome }}"
           />
         </div>
-        <div class="form-outline mb-4" style="width: 50%">
+        <div class="form-outline mb-4">
           <label class="form-label">Autor</label
           ><input
             class="form-control"
@@ -48,16 +49,16 @@
         </div>
       </div>
       <div class="row">
-        <div class="form-outline mb-4" style="width: 50%">
+        <div class="form-outline mb-4">
           <label class="form-label">Título</label>
           <input class="form-control" formControlName="titulo">
         </div>
-        <div class="form-outline mb-4"style="width: 50%">
+        <div class="form-outline mb-4">
           <label class="form-label">Prioridade</label>
           <input class="form-control" formControlName="prioridade">
         </div>
       </div>
-      <div class="form-outline mb-4">
+      <div class="mb-4">
         <label class="form-label">Descrição</label>
         <textarea
           class="form-control"
@@ -66,18 +67,19 @@
         ></textarea>
       </div>
       <div class="row">
-        <div class="form-outline mb-4" style="width: 50%">
+        <div class="form-outline mb-4">
           <label class="form-label">Data Inicio</label>
           <input class="form-control" formControlName="dataInicio">
         </div>
-        <div class="form-outline mb-4" style="width: 50%">
+        <div class="form-outline mb-4">
           <label class="form-label">Data Final</label>
           <input class="form-control" formControlName="dataFinal">
         </div>
       
       </div>
       <div class="row">
-        <button
+        <div class="d-flex justify-content-end">
+          <button
           type="button"
           class="btn btn-primary btn-block mb-4 jus"
           style="width: 15%"
@@ -85,6 +87,7 @@
         >
           Incluir
         </button>
+        </div>
       </div>
     </form>
   </div>

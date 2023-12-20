@@ -34,8 +34,10 @@ export class UsuarioComponent implements OnInit {
         .retornarUsuarioPorEmail(email)
         .subscribe((response) => {
           this.usuario = response.data;
-          if(response.data.matricula !== undefined) {
+          if(response.data.matricula !== undefined && response.data.roles !== undefined ) {
+            console.log(response.data)
             sessionStorage.setItem('matricula', response.data.matricula?.toString());
+            sessionStorage.setItem('role', response.data.roles);
           }
         }, (err) => this.toastMessage("Autentique-se novamente!"));
     }
@@ -52,7 +54,11 @@ export class UsuarioComponent implements OnInit {
   public salvarUsuarioEditado(): void {
     if (this.formGroup.valid) {
       this.usuario = { ...this.usuario, ...this.formGroup.value };
-      this.usuarioService.editarUsuario(this.usuario).subscribe();
+      this.usuarioService.editarUsuario(this.usuario).subscribe(() => {
+        this.toastMessage("Usuario editado com sucesso!");
+        this.retornarUsuario();
+        this.edit = !this.edit;
+      });
     } else {
       this.toastMessage("Dados Incompletos!");
     }
