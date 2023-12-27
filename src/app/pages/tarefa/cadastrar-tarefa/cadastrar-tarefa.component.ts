@@ -3,11 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUsuario } from 'src/app/core/interface/usuario';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
-import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
 import { ITarefa } from 'src/app/core/interface/tarefa';
 import { PrioridadeEnum } from 'src/app/enums/controle.enum';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-cadastrar-tarefa',
@@ -25,7 +23,7 @@ export class CadastrarTarefaComponent implements OnInit{
     private usuarioService: UsuarioService,
     private tarefaService: TarefaService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: SnackBarService
   ) {
     
     this.formGroup = this.fb.group({
@@ -51,7 +49,7 @@ export class CadastrarTarefaComponent implements OnInit{
         .retornarUsuarioPorMatricula(matricula)
         .subscribe((response) => (this.usuario = response.data));
     } else {
-      this.toastMessage('Dados incompletos!');
+      this.snackBar.abrirMessagem('Dados incompletos!');
     }
   }
 
@@ -59,17 +57,10 @@ export class CadastrarTarefaComponent implements OnInit{
     if (this.formGroup.valid) {
       let tarefa: ITarefa = this.formGroup.value;
       tarefa.autor = this.usuarioLogado;
-      this.tarefaService.salvarTarefa(tarefa).subscribe(() => this.toastMessage('Atividade cadastrada com sucesso!'),
-      (err)=> this.toastMessage(err.error.datalhes));
+      this.tarefaService.salvarTarefa(tarefa).subscribe(() => this.snackBar.abrirMessagem('Atividade cadastrada com sucesso!'),
+      (err)=> this.snackBar.abrirMessagem(err.error.datalhes));
     } else {
-      this.toastMessage('Dados incompletos!');
+      this.snackBar.abrirMessagem('Dados incompletos!');
     }
-  }
-
-  public toastMessage (message: string):void {
-    this.snackBar.openFromComponent(DisplayAlertComponent, {
-      duration: 1 * 1000,
-      data: message
-    })
   }
 }

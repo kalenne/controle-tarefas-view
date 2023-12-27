@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ILogin } from 'src/app/core/interface/login';
 import { LoginService } from 'src/app/core/services/login.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { DisplayAlertComponent } from 'src/app/components/displayalert/displayal
 export class LoginComponent implements OnInit {
   usuario = {} as ILogin;
 
-  constructor(private service: LoginService, private route: Router, private snackBar: MatSnackBar) {}
+  constructor(private service: LoginService, private route: Router, private snackBar: SnackBarService) {}
   ngOnInit(): void {
     sessionStorage.clear();
   }
@@ -23,11 +23,11 @@ export class LoginComponent implements OnInit {
       const token = response.data.token;
       if (token) {
         sessionStorage.setItem('token', token);
-        this.toastMessage('Usuario autenticado com sucesso!');
+        this.snackBar.abrirMessagem('Usuario autenticado com sucesso!');
         this.usuarioAutenticado(token);
       }
     }, (err) => {
-        this.toastMessage(err.error.detalhes);
+        this.snackBar.abrirMessagem(err.error.detalhes);
     });
   }
 
@@ -43,10 +43,4 @@ export class LoginComponent implements OnInit {
     this.route.navigate(['/cadastrar/usuario']);
   }
 
-  public toastMessage (message: string):void {
-    this.snackBar.openFromComponent(DisplayAlertComponent, {
-      duration: 2 * 1000,
-      data: message
-    })
-  }
 }

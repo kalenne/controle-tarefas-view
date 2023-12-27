@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { ITarefa } from 'src/app/core/interface/tarefa';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { RolesEnum } from 'src/app/enums/controle.enum';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-tarefa',
@@ -16,14 +15,14 @@ import { RolesEnum } from 'src/app/enums/controle.enum';
 export class TarefaComponent implements OnInit {
   tarefaDados = [] as ITarefa[];
   usuarioMatricula: number | undefined;
-  tipoUsuario = {} as RolesEnum;
   tipoUsuarioLogado = sessionStorage.getItem('role');
+  validacaoUsuario: boolean = this.tipoUsuarioLogado === RolesEnum.ROLE_ADMIN ? true : false;
 
   constructor(
     private tarefaService: TarefaService,
     private usuarioService: UsuarioService,
     private router: Router,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +37,7 @@ export class TarefaComponent implements OnInit {
         .retornarTarefasPorMatricula(this.usuarioMatricula)
         .subscribe(
           (response) => (this.tarefaDados = response.data),
-          (err) => this.toastMessage(err.error.message)
+          (err) => this.snackBar.abrirMessagem(err.error.message)
         );
     } else {
       
@@ -50,7 +49,7 @@ export class TarefaComponent implements OnInit {
     if (usuario) {
       this.usuarioService.retornarUsuarioPorEmail(usuario).subscribe(
         (response) => (this.usuarioMatricula = response.data.matricula),
-        (err) => this.toastMessage(err.error.detalhes)
+        (err) => this.snackBar.abrirMessagem(err.error.detalhes)
       );
     }
   }
@@ -58,19 +57,4 @@ export class TarefaComponent implements OnInit {
   public cadastrarNavegate(): void {
     this.router.navigate(['/cadastrar/tarefa']);
   }
-
-  public toastMessage(message: string): void {
-    this.snackBar.openFromComponent(DisplayAlertComponent, {
-      duration: 3 * 1000,
-      data: message,
-    });
-  }
-
-  public validarRole():boolean {
-    if( this.tipoUsuarioLogado === RolesEnum.ROLE_ADMIN) {
-      return true;
-    }
-    return false;
-  }
-
 }

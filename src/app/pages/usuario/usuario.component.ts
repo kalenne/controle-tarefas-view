@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { IUsuario } from 'src/app/core/interface/usuario';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-usuario',
@@ -16,7 +15,7 @@ export class UsuarioComponent implements OnInit {
   edit: boolean = false;
   formGroup: FormGroup;
 
-  constructor(private usuarioService: UsuarioService, private fb: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(private usuarioService: UsuarioService, private fb: FormBuilder, private snackBar: SnackBarService) {
     this.formGroup = this.fb.group({
       dataNascimento: this.fb.control('', [Validators.required]),
       nome: this.fb.control('', [Validators.required]),
@@ -38,7 +37,7 @@ export class UsuarioComponent implements OnInit {
             sessionStorage.setItem('matricula', response.data.matricula?.toString());
             sessionStorage.setItem('role', response.data.roles);
           }
-        }, (err) => this.toastMessage("Autentique-se novamente!"));
+        }, (err) => this.snackBar.abrirMessagem("Autentique-se novamente!"));
     }
   }
 
@@ -54,19 +53,13 @@ export class UsuarioComponent implements OnInit {
     if (this.formGroup.valid) {
       this.usuario = { ...this.usuario, ...this.formGroup.value };
       this.usuarioService.editarUsuario(this.usuario).subscribe(() => {
-        this.toastMessage("Usuario editado com sucesso!");
+        this.snackBar.abrirMessagem("Usuario editado com sucesso!");
         this.retornarUsuario();
         this.edit = !this.edit;
       });
     } else {
-      this.toastMessage("Dados Incompletos!");
+      this.snackBar.abrirMessagem("Dados Incompletos!");
     }
   }
 
-  public toastMessage (message: string):void {
-    this.snackBar.openFromComponent(DisplayAlertComponent, {
-      duration: 3 * 1000,
-      data: message
-    })
-  }
 }

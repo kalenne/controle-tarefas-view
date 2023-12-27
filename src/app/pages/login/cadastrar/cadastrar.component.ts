@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUsuario } from 'src/app/core/interface/usuario';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-cadastrar',
@@ -19,7 +18,7 @@ export class CadastrarComponent {
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private route: Router,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
 
   ) {
     this.formGroup = this.fb.group({
@@ -38,25 +37,18 @@ export class CadastrarComponent {
       };
       this.usuarioService.salvarUsuario(request).subscribe(() => {
         this.route.navigate(['/']);
-        this.toastMessage("Usuario cadastrado com sucesso!");
+        this.snackBar.abrirMessagem("Usuario cadastrado com sucesso!");
       }, (err) => {
-        this.toastMessage(err.error.texto);
+        this.snackBar.abrirMessagem(err.error.texto);
       });
     } else {
-      this.toastMessage('Dados incompletos!');
+      this.snackBar.abrirMessagem('Dados incompletos!');
     }
   }
 
   public loginNavegate(): void {
     this.route.navigate(['/']);
     
-  }
-
-  public toastMessage (message: string):void {
-    this.snackBar.openFromComponent(DisplayAlertComponent, {
-      duration: 3 * 1000,
-      data: message
-    })
   }
     
 }
