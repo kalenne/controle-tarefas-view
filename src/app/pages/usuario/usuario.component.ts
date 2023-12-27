@@ -35,7 +35,6 @@ export class UsuarioComponent implements OnInit {
         .subscribe((response) => {
           this.usuario = response.data;
           if(response.data.matricula !== undefined && response.data.roles !== undefined ) {
-            console.log(response.data)
             sessionStorage.setItem('matricula', response.data.matricula?.toString());
             sessionStorage.setItem('role', response.data.roles);
           }

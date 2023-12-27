@@ -1,23 +1,23 @@
-export enum Roles {
+export enum RolesEnum {
   ROLE_ADMIN = 'ROLE_ADMIN',
   ROLE_USER = 'ROLE_USER',
 }
 
-export enum Prioridade {
+export enum PrioridadeEnum {
 	BAIXA = 'BAIXA',
 	MEDIA = 'MEDIA',
 	ALTA = 'ALTA',
 	CRITICA = 'CRITICA'
 }
 
-export enum TipoStatus {
+export enum TipoStatusEnum {
 	CRIADO = 'BAIXA', 
   EM_ANDAMENTO = 'EM_ANDAMENTO', 
   FINALIZADO = 'FINALIZADO', 
   CANCELADO = 'CANCELADO'	
 }
 
-export enum UsuarioStatus {
+export enum UsuarioStatusEnum {
   ATIVO = 'ATIVO', 
   INATIVO = 'INATIVO'
 }

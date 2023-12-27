@@ -54,8 +54,12 @@
           <input class="form-control" formControlName="titulo">
         </div>
         <div class="form-outline mb-4">
-          <label class="form-label">Prioridade</label>
-          <input class="form-control" formControlName="prioridade">
+          <label class="form-label">Prioridade:</label>
+          <select formControlName="prioridade" class="form-control">
+            <option *ngFor="let prioridade of prioridades" [value]="prioridade">
+              {{ prioridade }}
+            </option>
+          </select>
         </div>
       </div>
       <div class="mb-4">

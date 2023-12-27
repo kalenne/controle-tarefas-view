@@ -6,7 +6,7 @@ import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
-import { Roles } from 'src/app/enums/controle.enum';
+import { RolesEnum } from 'src/app/enums/controle.enum';
 
 @Component({
   selector: 'app-tarefa',
@@ -16,7 +16,7 @@ import { Roles } from 'src/app/enums/controle.enum';
 export class TarefaComponent implements OnInit {
   tarefaDados = [] as ITarefa[];
   usuarioMatricula: number | undefined;
-  tipoUsuario = {} as Roles;
+  tipoUsuario = {} as RolesEnum;
   tipoUsuarioLogado = sessionStorage.getItem('role');
 
   constructor(
@@ -67,7 +67,7 @@ export class TarefaComponent implements OnInit {
   }
 
   public validarRole():boolean {
-    if( this.tipoUsuarioLogado === Roles.ROLE_ADMIN) {
+    if( this.tipoUsuarioLogado === RolesEnum.ROLE_ADMIN) {
       return true;
     }
     return false;

@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
 import { ITarefa } from 'src/app/core/interface/tarefa';
+import { PrioridadeEnum } from 'src/app/enums/controle.enum';
 
 @Component({
   selector: 'app-cadastrar-tarefa',
@@ -18,6 +19,7 @@ export class CadastrarTarefaComponent implements OnInit{
   formGroup: FormGroup;
   usuarioLogado: string = "";
   matricula = sessionStorage.getItem('matricula');
+  prioridades = Object.values(PrioridadeEnum);
 
   constructor(
     private usuarioService: UsuarioService,
@@ -54,11 +56,9 @@ export class CadastrarTarefaComponent implements OnInit{
   }
 
   public salvarTarefa(): void {
-    console.log(this.formGroup.value)
     if (this.formGroup.valid) {
       let tarefa: ITarefa = this.formGroup.value;
       tarefa.autor = this.usuarioLogado;
-      console.log(tarefa)
       this.tarefaService.salvarTarefa(tarefa).subscribe(() => this.toastMessage('Atividade cadastrada com sucesso!'),
       (err)=> this.toastMessage(err.error.datalhes));
     } else {
