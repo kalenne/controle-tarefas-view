@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav *ngIf="validarRoleAutenticado" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -9,7 +9,7 @@
             <a class="nav-link" href="/tarefa">Tarefa</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">Sair</a>
+            <a class="nav-link" href="/" (click)="destroySession()">Sair</a>
           </li>
         </ul>
       </div>

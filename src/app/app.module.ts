@@ -17,7 +17,6 @@ import { DisplayAlertComponent } from './components/displayalert/displayalert.co
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MaterialModule } from './core/modules/material/material.module';
 import { DatePipe } from '@angular/common';
-import { UsuarioSubjectService } from './core/services/usuariosubject.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +41,7 @@ import { UsuarioSubjectService } from './core/services/usuariosubject.service';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [DatePipe, UsuarioSubjectService],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
