@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   public usuarioAutenticado(token: string): void {
     this.service.usuarioAutenticado(token).subscribe((usuarioData) => {
       sessionStorage.setItem('username', usuarioData.data);
-      
       this.route.navigate(['/usuario']);
     });
   }

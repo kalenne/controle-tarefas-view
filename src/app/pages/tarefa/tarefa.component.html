@@ -1,19 +1,23 @@
 <div class="container">
   <div class="row mt-4">
-    <div class="col-6">
-      <input type="text" class="form-control" [disabled]="!validacaoUsuario" [(ngModel)]="usuarioMatricula"  />
+    <div class="col-6 d-flex justify-content-center">
+      <input
+        type="text"
+        class="form-control"
+        [disabled]="!validacaoUsuario"
+        [(ngModel)]="usuarioMatricula"
+      />
     </div>
     <div class="col-6">
       <button
         type="submit"
         class="btn btn-primary"
         (click)="retornarDadosPorMatricula()"
-        
       >
         Pesquisar
       </button>
       <button
-      *ngIf="validacaoUsuario"
+        *ngIf="validacaoUsuario"
         type="submit"
         class="btn btn-primary m-2"
         (click)="cadastrarNavegate()"
@@ -64,9 +68,47 @@
         <td>
           {{ tarefa.prioridade }}
         </td>
+        <td>
+          <button
+            mat-icon-button
+            matTooltip="Mais informações"
+            matTooltipPosition="above"
+            color="grey"
+            data-bs-toggle="modal"
+            data-bs-target="#modalTarefa"
+            (click)="tarefaSelecionada(tarefa)"
+          >
+            <mat-icon>menu</mat-icon>
+          </button>
+        </td>
       </tr>
-
-    
     </tbody>
   </table>
+</div>
+
+<div class="modal" id="modalTarefa" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Tarefa {{tarefa.codigo}}</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Autor: {{ tarefa.autor}}</p>
+        <p>Realizada: {{tarefa.matricula}} - {{ tarefa.nomeUsuario}}</p>
+        <p>Prioridade: {{ tarefa.prioridade}}</p>
+        <p>Data Início: {{ tarefa.dataInicio}}</p>
+        <p>Data Final: {{ tarefa.dataFinal}}</p>
+        <p>Descrição: {{ tarefa.descricao}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Concluir</button>
+      </div>
+    </div>
+  </div>
 </div>

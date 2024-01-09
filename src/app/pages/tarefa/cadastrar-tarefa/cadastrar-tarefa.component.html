@@ -14,11 +14,11 @@
             formControlName="matricula"
           />
         </div>
-        <div class="col-6 d-flex  align-items-center " >
+        <div class="col-6 d-flex align-items-center">
           <button
             type="submit"
             class="btn btn-primary"
-            style="width: 15%;"
+            style="width: 15%"
             (click)="retornarUsuario()"
           >
             <i class="bi bi-search"></i>
@@ -51,7 +51,7 @@
       <div class="row">
         <div class="form-outline mb-4">
           <label class="form-label">Título</label>
-          <input class="form-control" formControlName="titulo">
+          <input class="form-control" formControlName="titulo" />
         </div>
         <div class="form-outline mb-4">
           <label class="form-label">Prioridade:</label>
@@ -72,25 +72,46 @@
       </div>
       <div class="row">
         <div class="form-outline mb-4">
-          <label class="form-label">Data Inicio</label>
-          <input class="form-control" formControlName="dataInicio">
+          <mat-form-field>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="pickerInicio"
+              placeholder="Início"
+              formControlName="dataInicio"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(pickerInicio)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #pickerInicio></ngx-mat-datetime-picker>
+          </mat-form-field>
         </div>
         <div class="form-outline mb-4">
-          <label class="form-label">Data Final</label>
-          <input class="form-control" formControlName="dataFinal">
+          <mat-form-field>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="pickerFinal"
+              placeholder="Fim"
+              formControlName="dataFinal"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(pickerFinal)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #pickerFinal></ngx-mat-datetime-picker>
+          </mat-form-field>
         </div>
-      
       </div>
       <div class="row">
         <div class="d-flex justify-content-end">
           <button
-          type="button"
-          class="btn btn-primary btn-block mb-4 jus"
-          style="width: 15%"
-          (click)="salvarTarefa()"
-        >
-          Incluir
-        </button>
+            type="button"
+            class="btn btn-primary btn-block mb-4 jus"
+            style="width: 15%"
+            (click)="salvarTarefa()"
+          >
+            Incluir
+          </button>
         </div>
       </div>
     </form>

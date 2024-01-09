@@ -16,7 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DisplayAlertComponent } from './components/displayalert/displayalert.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MaterialModule } from './core/modules/material/material.module';
-
+import { DatePipe } from '@angular/common';
+import { UsuarioSubjectService } from './core/services/usuariosubject.service';
 
 @NgModule({
   declarations: [
@@ -28,10 +29,11 @@ import { MaterialModule } from './core/modules/material/material.module';
     CadastrarComponent,
     CadastrarTarefaComponent,
     DisplayAlertComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -39,11 +41,9 @@ import { MaterialModule } from './core/modules/material/material.module';
     InterceptorModule,
     BrowserAnimationsModule,
     MaterialModule,
-
-    
   ],
-  providers: [],
+  providers: [DatePipe, UsuarioSubjectService],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}
