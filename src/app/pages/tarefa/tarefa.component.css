@@ -20,5 +20,14 @@ td {
   justify-content: center;
   align-items: center;
   text-align: center;
-  
+}
+
+.modal-header h1 {
+  margin: 0%;
+  padding: 0%;
+}
+
+.ngx-mat-datetime-picker-container {
+  z-index: -2 !important;
+  position: absolute;
 }

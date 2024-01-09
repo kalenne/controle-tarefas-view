@@ -28,7 +28,9 @@
   </div>
 </div>
 <div class="table-responsive mt-4 p-5">
-  <table class="table align-items-center justify-content-center mb-0 text-center align-middle">
+  <table
+    class="table align-items-center justify-content-center mb-0 text-center align-middle"
+  >
     <thead>
       <tr>
         <th
@@ -89,8 +91,11 @@
 <div class="modal" id="modalTarefa" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title">Tarefa {{tarefa.codigo}}</h1>
+      <div class="modal-header text-center">
+        <h1 class="modal-title">Tarefa - {{ tarefa.codigo }}</h1>
+        <button *ngIf="validacaoUsuario" class="btn" style="width: 25%" (click)="editarTarefa()">
+          <i class="bi bi-pencil alig"></i>
+        </button>
         <button
           type="button"
           class="btn-close"
@@ -99,15 +104,100 @@
         ></button>
       </div>
       <div class="modal-body">
-        <p>Autor: {{ tarefa.autor}}</p>
-        <p>Realizada: {{tarefa.matricula}} - {{ tarefa.nomeUsuario}}</p>
-        <p>Prioridade: {{ tarefa.prioridade}}</p>
-        <p>Data Início: {{ tarefa.dataInicio}}</p>
-        <p>Data Final: {{ tarefa.dataFinal}}</p>
-        <p>Descrição: {{ tarefa.descricao}}</p>
+        <div class="row">
+          <div class="mb-3" style="width: 50%">
+            <label class="form-label">Autor</label>
+            <input
+              type="text"
+              class="form-control"
+              value="{{ tarefa.autor }}"
+              disabled
+            />
+          </div>
+          <div class="mb-3" style="width: 50%">
+            <label class="form-label">Realizada </label>
+            <input
+              type="text"
+              class="form-control"
+              value="{{ tarefa.matricula }}"
+              [disabled]="editTarefa"
+            />
+            <input
+              type="text"
+              class="form-control mt-1"
+              value="{{ tarefa.nomeUsuario }}"
+              [disabled]="editTarefa"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3" style="width: 50%">
+            <label class="form-label">Prioridade</label>
+            <input
+              type="text"
+              class="form-control"
+              value="{{ tarefa.prioridade }}"
+              [disabled]="editTarefa"
+            />
+          </div>
+          <div class="mb-3" style="width: 50%">
+            <label class="form-label">Status</label>
+            <input
+              type="text"
+              class="form-control"
+              value="{{ tarefa.status }}"
+              [disabled]="editTarefa"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3">
+            <label class="form-label">Descrição</label>
+            <textarea
+              class="form-control"
+              placeholder="Descricao"
+              value="{{ tarefa.descricao }}"
+              [disabled]="editTarefa"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-outline mb-4" style="width: 50%">
+            <mat-form-field>
+              <input
+                matInput
+                [ngxMatDatetimePicker]="pickerInicio"
+                placeholder="Início"
+                value="{{tarefa.dataInicio}}"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="$any(pickerInicio)"
+              ></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #pickerInicio></ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+          <div class="form-outline mb-4" style="width: 50%; z-index: 200;">
+            <mat-form-field>
+              <input
+                matInput
+                [ngxMatDatetimePicker]="pickerFinal"
+                placeholder="Fim"
+                [ngModel]="tarefa.dataFinal"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="$any(pickerFinal)"
+              ></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #pickerFinal></ngx-mat-datetime-picker>
+            </mat-form-field>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Concluir</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Concluir
+        </button>
       </div>
     </div>
   </div>

@@ -20,7 +20,7 @@ export class TarefaComponent implements OnInit {
   validacaoUsuario: boolean =
     this.tipoUsuarioLogado === RolesEnum.ROLE_ADMIN ? true : false;
   tarefa = {} as ITarefa;
-
+  editTarefa:boolean = true;
   constructor(
     private tarefaService: TarefaService,
     private usuarioService: UsuarioService,
@@ -69,4 +69,8 @@ export class TarefaComponent implements OnInit {
   public tarefaSelecionada(tarefa: ITarefa): void {
     this.tarefa = tarefa;
   }
-}
+
+  public editarTarefa() {
+    this.editTarefa = !this.editTarefa;
+  }
+ }
