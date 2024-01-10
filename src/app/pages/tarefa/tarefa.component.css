@@ -6,14 +6,14 @@
 }
 
 .box {
-width: 600px; 
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 20px;
-border: 1px solid #ccc; 
-border-radius: 8px; 
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 td {
@@ -27,7 +27,20 @@ td {
   padding: 0%;
 }
 
+/* .modal {
+  z-index: 1050 !important; 
+}
+
+.modal-backdrop, .modal-backdrop.show {
+  z-index: 1040 !important ; 
+} */
+
 .ngx-mat-datetime-picker-container {
-  z-index: -2 !important;
+  z-index: var(--bs-modal-zindex) + 1 !important;
   position: absolute;
+  top: "auto";
+  bottom: "auto";
+  left: "auto";
+  right: "auto";
+  position: "fixed";
 }

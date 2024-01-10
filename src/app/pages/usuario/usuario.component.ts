@@ -2,20 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUsuario } from 'src/app/core/interface/usuario';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css'],
 })
-export class UsuarioComponent implements OnInit {
+export class UsuarioComponent extends ToastMessage implements OnInit {
   usuario = {} as IUsuario;
   usuarioEditado = {} as IUsuario;
   edit: boolean = false;
   formGroup: FormGroup;
 
-  constructor(private usuarioService: UsuarioService, private fb: FormBuilder, private snackBar: SnackBarService) {
+  constructor(
+    private usuarioService: UsuarioService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
+  ) {
+    super();
     this.formGroup = this.fb.group({
       dataNascimento: this.fb.control('', [Validators.required]),
       nome: this.fb.control('', [Validators.required]),
@@ -26,15 +33,22 @@ export class UsuarioComponent implements OnInit {
     this.retornarUsuario();
   }
 
+  abrirToastMessage(messagem: string): void {
+    this.snackBar.openFromComponent(DisplayAlertComponent, {
+      data: messagem,
+      duration: 3 * 1000
+    });
+  }
+
   public retornarUsuario() {
     const email = sessionStorage.getItem('username');
     if (email) {
-      this.usuarioService
-        .retornarUsuarioPorEmail(email)
-        .subscribe((response) => {
+      this.usuarioService.retornarUsuarioPorEmail(email).subscribe(
+        (response) => {
           this.usuario = response.data;
-          
-        }, (err) => this.snackBar.abrirMessagem("Autentique-se novamente!"));
+        },
+        (err) => this.abrirToastMessage('Autentique-se novamente!')
+      );
     }
   }
 
@@ -50,13 +64,12 @@ export class UsuarioComponent implements OnInit {
     if (this.formGroup.valid) {
       this.usuario = { ...this.usuario, ...this.formGroup.value };
       this.usuarioService.editarUsuario(this.usuario).subscribe(() => {
-        this.snackBar.abrirMessagem("Usuario editado com sucesso!");
+        this.abrirToastMessage('Usuario editado com sucesso!');
         this.retornarUsuario();
         this.edit = !this.edit;
       });
     } else {
-      this.snackBar.abrirMessagem("Dados Incompletos!");
+      this.abrirToastMessage('Dados Incompletos!');
     }
   }
-
 }

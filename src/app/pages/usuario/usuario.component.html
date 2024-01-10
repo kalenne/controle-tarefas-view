@@ -55,9 +55,15 @@
                     <h3>Status</h3>
                     <p *ngIf="!edit" class="text-muted">{{ usuario.status }}</p>
                   </div>
-                  <div class="col-6 mb-3 d-flex justify-content-end">
-                    <button *ngIf="edit" type="button" (click)="salvarUsuarioEditado()" class="btn btn-primary">Enviar</button>
                   </div>
+                  <div class="row mb-3 d-flex align-items-end ">
+                    <div class=" d-flex justify-content-end col-6">
+                      <button *ngIf="edit" type="button" (click)="(edit = false)" class="btn btn-secondary">Cancelar</button>
+                    </div>
+                    <div class="col-6">
+                      <button *ngIf="edit" type="button" (click)="salvarUsuarioEditado()" class="btn btn-primary">Enviar</button>
+
+                    </div>
                 </div>
               </div>
             </div>

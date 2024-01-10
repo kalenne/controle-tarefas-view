@@ -14,9 +14,9 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { DATE_TIME_FORMAT } from 'src/app/utils/DATE_TIME_FORMAT';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [],
@@ -37,8 +37,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     NgxMatMomentModule,
   ],
   providers: [
-    { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_TIME_FORMAT },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_TIME_FORMAT },
   ],
 })
 export class MaterialModule {}

@@ -5,15 +5,17 @@ import { ITarefa } from 'src/app/core/interface/tarefa';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { RolesEnum } from 'src/app/enums/controle.enum';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { switchMap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
+import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
 
 @Component({
   selector: 'app-tarefa',
   templateUrl: './tarefa.component.html',
   styleUrls: ['./tarefa.component.css'],
 })
-export class TarefaComponent implements OnInit {
+export class TarefaComponent extends ToastMessage implements OnInit {
   tarefaDados = [] as ITarefa[];
   usuarioMatricula: number | undefined;
   tipoUsuarioLogado = sessionStorage.getItem('role');
@@ -25,11 +27,20 @@ export class TarefaComponent implements OnInit {
     private tarefaService: TarefaService,
     private usuarioService: UsuarioService,
     private router: Router,
-    private snackBar: SnackBarService
-  ) {}
+    private snackBar: MatSnackBar
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.retornarDadosPorMatricula();
+  }
+
+  abrirToastMessage(messagem: string): void {
+    this.snackBar.openFromComponent(DisplayAlertComponent, {
+      data: messagem,
+      duration: 3 * 1000
+    });
   }
 
   public retornarDadosPorMatricula(): void {
@@ -54,10 +65,10 @@ export class TarefaComponent implements OnInit {
             if (response.data.length > 1) {
               this.tarefaDados = response.data;
             } else {
-              this.snackBar.abrirMessagem('Usuário sem tarefas!');
+              this.abrirToastMessage('Usuário sem tarefas!');
             }
           },
-          (err) => this.snackBar.abrirMessagem(err.error.message)
+          (err) => this.abrirToastMessage(err.error.message)
         );
     }
   }

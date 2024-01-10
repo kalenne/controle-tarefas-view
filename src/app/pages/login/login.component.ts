@@ -1,24 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
+import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
 import { ILogin } from 'src/app/core/interface/login';
 import { LoginService } from 'src/app/core/services/login.service';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends ToastMessage implements OnInit {
   usuario = {} as ILogin;
 
   constructor(
     private service: LoginService,
     private route: Router,
-    private snackBar: SnackBarService
-  ) {}
+    private snackBar: MatSnackBar
+  ) {
+    super();
+  }
   ngOnInit(): void {
     sessionStorage.clear();
+  }
+
+  abrirToastMessage(messagem: string): void {
+    this.snackBar.openFromComponent(DisplayAlertComponent, {
+      data: messagem,
+    });
   }
 
   public autenticar(): void {
@@ -27,12 +37,12 @@ export class LoginComponent implements OnInit {
         if(response) {
           sessionStorage.setItem('username', response.data[0]);
           sessionStorage.setItem('role', response.data[1]);
-          this.snackBar.abrirMessagem('Usuario autenticado com sucesso!');
+          this.abrirToastMessage('Usuario autenticado com sucesso!');
           this.route.navigate(['/tarefa']);
         }
       },
       (err) => {
-        this.snackBar.abrirMessagem(err.error.detalhes);
+        this.abrirToastMessage(err.error.detalhes);
       }
     );
   }

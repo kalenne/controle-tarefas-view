@@ -5,9 +5,11 @@ import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { ITarefa } from 'src/app/core/interface/tarefa';
 import { PrioridadeEnum } from 'src/app/enums/controle.enum';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
+import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 
 @Component({
   selector: 'app-cadastrar-tarefa',
@@ -15,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cadastrar-tarefa.component.css'],
   providers: [],
 })
-export class CadastrarTarefaComponent implements OnInit {
+export class CadastrarTarefaComponent extends ToastMessage implements OnInit {
   usuario = {} as IUsuario;
   formGroup: FormGroup;
   usuarioLogado: string = '';
@@ -26,10 +28,11 @@ export class CadastrarTarefaComponent implements OnInit {
     private usuarioService: UsuarioService,
     private tarefaService: TarefaService,
     private fb: FormBuilder,
-    private snackBar: SnackBarService,
+    private snackBar: MatSnackBar,
     private datePipe: DatePipe,
     private router: Router
   ) {
+    super();
     this.formGroup = this.fb.group({
       matricula: this.fb.control('', [Validators.required]),
       descricao: this.fb.control('', [Validators.required]),
@@ -44,6 +47,13 @@ export class CadastrarTarefaComponent implements OnInit {
     if (this.matricula) this.usuarioLogado = this.matricula;
   }
 
+  abrirToastMessage(messagem: string): void {
+    this.snackBar.openFromComponent(DisplayAlertComponent, {
+      data: messagem,
+      duration: 3 * 1000
+    });
+  }
+
   public retornarUsuario(): void {
     this.usuario.nome = '';
     let matricula = this.formGroup.value.matricula;
@@ -52,7 +62,7 @@ export class CadastrarTarefaComponent implements OnInit {
         .retornarUsuarioPorMatricula(matricula)
         .subscribe((response) => (this.usuario = response.data));
     } else {
-      this.snackBar.abrirMessagem('Dados incompletos!');
+      this.abrirToastMessage('Dados incompletos!');
     }
   }
 
@@ -71,14 +81,18 @@ export class CadastrarTarefaComponent implements OnInit {
       };
       tarefa.autor = this.usuarioLogado;
       this.tarefaService.salvarTarefa(tarefa).subscribe(
-        () =>{ 
-          this.snackBar.abrirMessagem('Atividade cadastrada com sucesso!');
+        () => {
+          this.abrirToastMessage('Atividade cadastrada com sucesso!');
           this.router.navigate(['/tarefa']);
         },
-        (err) => this.snackBar.abrirMessagem(err.error.datalhes)
+        (err) => this.abrirToastMessage(err.error.datalhes)
       );
     } else {
-      this.snackBar.abrirMessagem('Dados incompletos!');
+      this.abrirToastMessage('Dados incompletos!');
     }
+  }
+
+  retornarPagina(): void {
+    this.router.navigate(['/tarefa']);
   }
 }
