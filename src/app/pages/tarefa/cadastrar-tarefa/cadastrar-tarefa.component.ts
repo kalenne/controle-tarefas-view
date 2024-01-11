@@ -57,6 +57,7 @@ export class CadastrarTarefaComponent extends ToastMessage implements OnInit {
   public retornarUsuario(): void {
     this.usuario.nome = '';
     let matricula = this.formGroup.value.matricula;
+    
     if (matricula) {
       this.usuarioService
         .retornarUsuarioPorMatricula(matricula)

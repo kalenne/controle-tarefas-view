@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tarefa',
@@ -22,7 +23,10 @@ export class TarefaComponent extends ToastMessage implements OnInit {
   validacaoUsuario: boolean =
     this.tipoUsuarioLogado === RolesEnum.ROLE_ADMIN ? true : false;
   tarefa = {} as ITarefa;
-  editTarefa:boolean = true;
+  editTarefa: boolean = true;
+  dataInicio: Date | undefined;
+  dataFinal: Date | undefined;
+
   constructor(
     private tarefaService: TarefaService,
     private usuarioService: UsuarioService,
@@ -39,22 +43,26 @@ export class TarefaComponent extends ToastMessage implements OnInit {
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
       data: messagem,
-      duration: 3 * 1000
+      duration: 3 * 1000,
     });
   }
 
   public retornarDadosPorMatricula(): void {
     const usuario = sessionStorage.getItem('username');
+    this.tarefaDados = [];
 
     if (usuario) {
       this.usuarioService
         .retornarUsuarioPorEmail(usuario)
         .pipe(
           switchMap((dadosUsuario) => {
-            if (this.usuarioMatricula == null) {
+            if (this.usuarioMatricula == null && dadosUsuario.data.matricula) {
+              sessionStorage.setItem(
+                'matricula',
+                dadosUsuario.data.matricula?.toString()
+              );
               this.usuarioMatricula = dadosUsuario.data.matricula;
             }
-
             return this.tarefaService.retornarTarefasPorMatricula(
               this.usuarioMatricula
             );
@@ -62,7 +70,7 @@ export class TarefaComponent extends ToastMessage implements OnInit {
         )
         .subscribe(
           (response) => {
-            if (response.data.length > 1) {
+            if (response.data.length >= 1) {
               this.tarefaDados = response.data;
             } else {
               this.abrirToastMessage('Usuário sem tarefas!');
@@ -79,9 +87,18 @@ export class TarefaComponent extends ToastMessage implements OnInit {
 
   public tarefaSelecionada(tarefa: ITarefa): void {
     this.tarefa = tarefa;
+    this.dataInicio = this.conversãoDoDatePicker(tarefa.dataInicio);
+    this.dataFinal = this.conversãoDoDatePicker(tarefa.dataFinal);
+  }
+
+  conversãoDoDatePicker(data: string): Date {
+    const partes = data.split(/[\s/:]+/);
+    const [dia, mes, ano, hora, minuto, segundo] = partes;
+
+    return new Date(+ano, +mes - 1, +dia, +hora, +minuto, +segundo);
   }
 
   public editarTarefa() {
     this.editTarefa = !this.editTarefa;
   }
- }
+}

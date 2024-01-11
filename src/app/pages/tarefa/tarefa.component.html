@@ -168,7 +168,7 @@
                 matInput
                 [ngxMatDatetimePicker]="pickerInicio"
                 placeholder="Início"
-                value="{{tarefa.dataInicio}}"
+                [(ngModel)]="dataInicio"
               />
               <mat-datepicker-toggle
                 matSuffix
@@ -183,7 +183,7 @@
                 matInput
                 [ngxMatDatetimePicker]="pickerFinal"
                 placeholder="Fim"
-                [ngModel]="tarefa.dataFinal"
+                [(ngModel)]="dataFinal"
               />
               <mat-datepicker-toggle
                 matSuffix

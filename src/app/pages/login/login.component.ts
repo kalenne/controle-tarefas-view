@@ -28,6 +28,7 @@ export class LoginComponent extends ToastMessage implements OnInit {
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
       data: messagem,
+      duration: 3 * 1000
     });
   }
 
