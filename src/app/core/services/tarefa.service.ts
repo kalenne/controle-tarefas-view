@@ -25,4 +25,8 @@ export class TarefaService {
   public salvarTarefa(tarefa: ITarefa): Observable<ITarefa> {
     return this.http.post<ITarefa>(`${this.api}`, tarefa);
   }
+
+  public salvarTarefaExistente(tarefa:ITarefa):Observable<ITarefa> {
+    return this.http.put<ITarefa>(`${this.api}/${tarefa.codigo}`, tarefa)
+  }
 }

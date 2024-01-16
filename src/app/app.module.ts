@@ -17,6 +17,7 @@ import { DisplayAlertComponent } from './components/displayalert/displayalert.co
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MaterialModule } from './core/modules/material/material.module';
 import { DatePipe } from '@angular/common';
+import { InputTarefasComponent } from './components/input-tarefas/input-tarefas.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DatePipe } from '@angular/common';
     CadastrarTarefaComponent,
     DisplayAlertComponent,
     NavbarComponent,
+    InputTarefasComponent
   ],
   imports: [
     BrowserModule,

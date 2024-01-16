@@ -26,21 +26,3 @@ td {
   margin: 0%;
   padding: 0%;
 }
-
-/* .modal {
-  z-index: 1050 !important; 
-}
-
-.modal-backdrop, .modal-backdrop.show {
-  z-index: 1040 !important ; 
-} */
-
-.ngx-mat-datetime-picker-container {
-  z-index: var(--bs-modal-zindex) + 1 !important;
-  position: absolute;
-  top: "auto";
-  bottom: "auto";
-  left: "auto";
-  right: "auto";
-  position: "fixed";
-}

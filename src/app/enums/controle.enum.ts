@@ -11,7 +11,7 @@ export enum PrioridadeEnum {
 }
 
 export enum TipoStatusEnum {
-	CRIADO = 'BAIXA', 
+	CRIADO = 'CRIADO', 
   EM_ANDAMENTO = 'EM_ANDAMENTO', 
   FINALIZADO = 'FINALIZADO', 
   CANCELADO = 'CANCELADO'	

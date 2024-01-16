@@ -1,0 +1,104 @@
+<form [formGroup]="formGroup">
+    <div class="mb-3">
+        <label class="form-label">Título </label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="titulo"
+        [attr.disabled]=" editTarefa ? true : null"
+      />
+    </div>
+  <div class="row">
+    <div class="mb-3" style="width: 50%">
+      <label class="form-label">Autor</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="autor"
+        [attr.disabled]=" true "
+      />
+    </div>
+    <div class="mb-3" style="width: 50%">
+      <label class="form-label">Realizada </label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="matricula"
+        (blur)="retornarUsuario()"
+        [attr.disabled]=" editTarefa ? true : null"
+      />
+      <input
+        type="text"
+        class="form-control mt-1"
+        value="{{ usuario.nome }}"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-outline mb-4" style="width: 50%">
+      <label class="form-label">Prioridade:</label>
+      <select class="form-control" formControlName="prioridade" [attr.disabled]=" editTarefa ? true : null">
+        <option *ngFor="let prioridade of prioridades">
+          {{ prioridade }}
+        </option>
+      </select>
+    </div>
+    <div class="form-outline mb-4" style="width: 50%">
+      <label class="form-label">Status:</label>
+      <select class="form-control" formControlName="status" [attr.disabled]=" editTarefa ? true : null" >
+        <option *ngFor="let stat of status">
+          {{ stat }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3">
+      <label class="form-label">Descrição</label>
+      <textarea
+        class="form-control"
+        placeholder="Descricao"
+        formControlName="descricao"
+        [attr.disabled]=" editTarefa ? true : null"
+      ></textarea>
+    </div>
+  </div>
+  <!-- <div class="row">
+        <div class="form-outline mb-4" style="width: 50%">
+          <mat-form-field>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="pickerInicio"
+              placeholder="Início"
+              [(ngModel)]="dataInicio"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(pickerInicio)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #pickerInicio></ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+        <div class="form-outline mb-4" style="width: 50%;">
+          <mat-form-field>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="pickerFinal"
+              placeholder="Fim"
+              [(ngModel)]="dataFinal"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(pickerFinal)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker #pickerFinal></ngx-mat-datetime-picker>
+          </mat-form-field>
+        </div>
+      </div> -->
+</form>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="salvarTarefa()" data-bs-dismiss="modal">
+      Concluir
+    </button>
+  </div>

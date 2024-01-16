@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { ITarefa } from 'src/app/core/interface/tarefa';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { RolesEnum } from 'src/app/enums/controle.enum';
+import {
+  PrioridadeEnum,
+  RolesEnum,
+  TipoStatusEnum,
+} from 'src/app/enums/controle.enum';
 import { switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tarefa',
@@ -24,8 +26,6 @@ export class TarefaComponent extends ToastMessage implements OnInit {
     this.tipoUsuarioLogado === RolesEnum.ROLE_ADMIN ? true : false;
   tarefa = {} as ITarefa;
   editTarefa: boolean = true;
-  dataInicio: Date | undefined;
-  dataFinal: Date | undefined;
 
   constructor(
     private tarefaService: TarefaService,
@@ -43,7 +43,7 @@ export class TarefaComponent extends ToastMessage implements OnInit {
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
       data: messagem,
-      duration: 3 * 1000,
+      duration: 2 * 1000,
     });
   }
 
@@ -87,18 +87,6 @@ export class TarefaComponent extends ToastMessage implements OnInit {
 
   public tarefaSelecionada(tarefa: ITarefa): void {
     this.tarefa = tarefa;
-    this.dataInicio = this.conversãoDoDatePicker(tarefa.dataInicio);
-    this.dataFinal = this.conversãoDoDatePicker(tarefa.dataFinal);
   }
 
-  conversãoDoDatePicker(data: string): Date {
-    const partes = data.split(/[\s/:]+/);
-    const [dia, mes, ano, hora, minuto, segundo] = partes;
-
-    return new Date(+ano, +mes - 1, +dia, +hora, +minuto, +segundo);
-  }
-
-  public editarTarefa() {
-    this.editTarefa = !this.editTarefa;
-  }
 }
