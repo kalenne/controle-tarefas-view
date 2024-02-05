@@ -1,15 +1,5 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-  MomentDateAdapter,
-} from '@angular/material-moment-adapter';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
@@ -17,40 +7,22 @@ import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
 import { IUsuario } from 'src/app/core/interface/usuario';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
-
 @Component({
   selector: 'app-cadastrar',
   templateUrl: './cadastrar.component.html',
   styleUrls: ['./cadastrar.component.css'],
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  ],
 })
 export class CadastrarComponent extends ToastMessage {
-  formGroup: FormGroup;
 
+  formGroup: FormGroup;
+  date = new Date().toISOString().slice(0, 16);
+
+  
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private route: Router,
     private snackBar: MatSnackBar,
-    private datePipe: DatePipe
   ) {
     super();
     this.formGroup = this.fb.group({
@@ -65,7 +37,7 @@ export class CadastrarComponent extends ToastMessage {
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
       data: messagem,
-      duration: 3 * 1000
+      duration: 3 * 1000,
     });
   }
 
@@ -73,11 +45,8 @@ export class CadastrarComponent extends ToastMessage {
     if (this.formGroup.valid) {
       let request: IUsuario = {
         ...this.formGroup.value,
-        dataNascimento: this.datePipe.transform(
-          this.formGroup.value.dataNascimento,
-          'dd/MM/yyyy'
-        ),
       };
+      console.log(request)
       this.usuarioService.salvarUsuario(request).subscribe(
         () => {
           this.route.navigate(['/']);
@@ -92,7 +61,8 @@ export class CadastrarComponent extends ToastMessage {
     }
   }
 
-  public loginNavegate(): void {
+  retornarPagina() {
     this.route.navigate(['/']);
   }
+
 }

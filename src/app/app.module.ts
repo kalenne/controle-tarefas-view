@@ -18,6 +18,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MaterialModule } from './core/modules/material/material.module';
 import { DatePipe } from '@angular/common';
 import { InputTarefasComponent } from './components/input-tarefas/input-tarefas.component';
+import { EnumdisplayPipe } from './pipes/enumdisplay.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FiltroTabelaPipe } from './pipes/filtro-tabela.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { InputTarefasComponent } from './components/input-tarefas/input-tarefas.
     CadastrarTarefaComponent,
     DisplayAlertComponent,
     NavbarComponent,
-    InputTarefasComponent
+    InputTarefasComponent,
+    EnumdisplayPipe,
+    FiltroTabelaPipe
   ],
   imports: [
     BrowserModule,
@@ -42,6 +47,7 @@ import { InputTarefasComponent } from './components/input-tarefas/input-tarefas.
     InterceptorModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgbModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

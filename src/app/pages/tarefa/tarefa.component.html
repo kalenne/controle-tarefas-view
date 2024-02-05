@@ -14,7 +14,7 @@
         class="btn btn-primary"
         (click)="retornarDadosPorMatricula()"
       >
-        Pesquisar
+        <i class="bi bi-search"></i>
       </button>
       <button
         *ngIf="validacaoUsuario"
@@ -27,81 +27,17 @@
     </div>
   </div>
 </div>
-<div class="table-responsive mt-4 p-5">
-  <table
-    class="table align-items-center justify-content-center mb-0 text-center align-middle"
-  >
-    <thead>
-      <tr>
-        <th
-          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-        >
-          Codigo
-        </th>
-        <th
-          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
-        >
-          Título
-        </th>
-        <th
-          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-        >
-          Autor
-        </th>
-        <th
-          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-        >
-          Prioridade
-        </th>
-        <th
-          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-        >
-          Status
-        </th>
-        <th class="text-secondary opacity-7"></th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let tarefa of tarefaDados">
-      <tr>
-        <td>
-          {{ tarefa.codigo }}
-        </td>
-        <td>
-          {{ tarefa.titulo }}
-        </td>
-        <td>
-          {{ tarefa.autor }}
-        </td>
-        <td>
-          {{ tarefa.prioridade }}
-        </td>
-        <td>
-          {{ tarefa.status }}
-        </td>
-        <td>
-          <button
-            mat-icon-button
-            matTooltip="Mais informações"
-            matTooltipPosition="above"
-            color="grey"
-            data-bs-toggle="modal"
-            data-bs-target="#modalTarefa"
-            (click)="tarefaSelecionada(tarefa)"
-          >
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 <div class="modal" id="modalTarefa" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header text-center">
         <h1 class="modal-title">Tarefa - {{ tarefa.codigo }}</h1>
-        <button *ngIf="validacaoUsuario" class="btn" style="width: 25%" (click)="editTarefa=!editTarefa">
+        <button
+          *ngIf="validacaoUsuario"
+          class="btn"
+          style="width: 25%"
+          (click)="editTarefa = !editTarefa"
+        >
           <i class="bi bi-pencil alig"></i>
         </button>
         <button
@@ -113,9 +49,45 @@
         ></button>
       </div>
       <div class="modal-body">
-        <app-input-tarefas [tarefa]="tarefa" [editTarefa]="editTarefa"></app-input-tarefas>
+        <app-input-tarefas
+          [tarefa]="tarefa"
+          [editTarefa]="editTarefa"
+        ></app-input-tarefas>
       </div>
-      
     </div>
   </div>
+</div>
+
+<div class="mat-elevation-z8 mt-4">
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+  >
+
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let tarefa"> {{tarefa.codigo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Filtrar por título"> Título </th>
+      <td mat-cell *matCellDef="let tarefa"> {{tarefa.titulo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="prioridade">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Filtrar por prioridade"> Prioridade </th>
+      <td mat-cell *matCellDef="let tarefa"> {{tarefa.prioridade}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Filtrar por status"> Status </th>
+      <td mat-cell *matCellDef="let tarefa"> {{tarefa.status}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[6, 10, 20]"
+                 showFirstLastButtons 
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
 </div>

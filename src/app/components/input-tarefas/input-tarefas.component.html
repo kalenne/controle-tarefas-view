@@ -64,38 +64,16 @@
       ></textarea>
     </div>
   </div>
-  <!-- <div class="row">
-        <div class="form-outline mb-4" style="width: 50%">
-          <mat-form-field>
-            <input
-              matInput
-              [ngxMatDatetimePicker]="pickerInicio"
-              placeholder="Início"
-              [(ngModel)]="dataInicio"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="$any(pickerInicio)"
-            ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #pickerInicio></ngx-mat-datetime-picker>
-          </mat-form-field>
-        </div>
-        <div class="form-outline mb-4" style="width: 50%;">
-          <mat-form-field>
-            <input
-              matInput
-              [ngxMatDatetimePicker]="pickerFinal"
-              placeholder="Fim"
-              [(ngModel)]="dataFinal"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="$any(pickerFinal)"
-            ></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #pickerFinal></ngx-mat-datetime-picker>
-          </mat-form-field>
-        </div>
-      </div> -->
+  <div class="row">
+    <div class="form-outline mb-4" style="width: 50%">
+      <label class="form-label">Início</label>
+      <input type="datetime-local" min="{{dateMin}}" max="{{dateMax}}" class="form-control" formControlName="dataInicio"  />
+    </div>
+    <div class="form-outline mb-4" style="width: 50%">
+      <label class="form-label">Fim</label>
+      <input type="datetime-local" min="{{dateMin}}" max="{{dateMax}}" class="form-control" formControlName="dataFinal"  />
+    </div>
+  </div>
 </form>
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="salvarTarefa()" data-bs-dismiss="modal">

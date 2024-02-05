@@ -1,24 +1,18 @@
-<div class="box-container">
-  <div class="box-button d-flex">
-    <div class="col-6 d-flex justify-content-end p-2">
-      <button
-        type="button"
-        class="btn btn-primary btn-lg"
-        (click)="loginNavegate()"
-      >
-        Login
-      </button>
-    </div>
-    <div class="col-6 p-2">
-      <button type="button" class="btn btn-primary btn-lg">Cadastrar</button>
-    </div>
-  </div>
-</div>
-
 <div class="container">
   <div class="box-body">
     <div class="text-center mx-auto p-2">
-      <h2>Cadastrar</h2>
+      <div class="row">
+        
+        <div class="col-4 d-flex align-items-center">
+          <button type="submit" class="btn btn-light" style="width: 25%" (click)="retornarPagina()">
+            <i class="bi bi-arrow-return-left"></i>
+          </button>
+        </div>
+        <div class="col-8 d-flex align-items-center">
+          <h2>Cadastrar Tarefa</h2>
+        </div>
+      </div>
+      
     </div>
     <form [formGroup]="formGroup">
       <div class="row">
@@ -65,19 +59,14 @@
 
       <div class="row">
         <div class="form-outline mb-4">
-          <mat-form-field appearance="fill">
-            <mat-label>Data de Nascimento</mat-label>
-            <input
-              matInput
-              [matDatepicker]="picker"
-              formControlName="dataNascimento"
-            />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+          <label class="form-label">Data de Nascimento</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="dataNascimento"
+            max="{{date}}"
+            min="1900-01-01"
+          />
         </div>
         <div class="d-flex justify-content-end">
           <button

@@ -1,24 +1,33 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ITarefa } from 'src/app/core/interface/tarefa';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import {
-  PrioridadeEnum,
-  RolesEnum,
-  TipoStatusEnum,
-} from 'src/app/enums/controle.enum';
+import { RolesEnum } from 'src/app/enums/controle.enum';
 import { switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-tarefa',
   templateUrl: './tarefa.component.html',
   styleUrls: ['./tarefa.component.css'],
 })
-export class TarefaComponent extends ToastMessage implements OnInit {
+export class TarefaComponent
+  extends ToastMessage
+  implements OnInit, AfterViewInit
+{
   tarefaDados = [] as ITarefa[];
   usuarioMatricula: number | undefined;
   tipoUsuarioLogado = sessionStorage.getItem('role');
@@ -27,17 +36,30 @@ export class TarefaComponent extends ToastMessage implements OnInit {
   tarefa = {} as ITarefa;
   editTarefa: boolean = true;
 
+  displayedColumns: string[] = ['codigo', 'titulo', 'prioridade', 'status'];
+  dataSource = new MatTableDataSource<ITarefa>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private tarefaService: TarefaService,
     private usuarioService: UsuarioService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef,
+    private liveAnnouncer: LiveAnnouncer
   ) {
     super();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   ngOnInit(): void {
     this.retornarDadosPorMatricula();
+    this.cdr.detectChanges();
   }
 
   abrirToastMessage(messagem: string): void {
@@ -72,6 +94,7 @@ export class TarefaComponent extends ToastMessage implements OnInit {
           (response) => {
             if (response.data.length >= 1) {
               this.tarefaDados = response.data;
+              this.dataSource.data = response.data;
             } else {
               this.abrirToastMessage('Usuário sem tarefas!');
             }
@@ -89,4 +112,13 @@ export class TarefaComponent extends ToastMessage implements OnInit {
     this.tarefa = tarefa;
   }
 
+  announceSortChange(sortState: Sort) {
+    if (sortState instanceof MatSort) {
+      if (sortState.direction) {
+        this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      } else {
+        this.liveAnnouncer.announce('Sorting cleared');
+      }
+    }
+  }
 }

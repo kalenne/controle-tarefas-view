@@ -35,6 +35,9 @@ export class InputTarefasComponent extends ToastMessage implements OnInit, OnCha
   usuario = {} as IUsuario;
   formGroup: FormGroup;
 
+  dateMin = new Date().toISOString().slice(0, 16);
+  dateMax = new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString().slice(0, 16);
+
   constructor(private usuarioService: UsuarioService,
     private tarefaService: TarefaService,
     private snackBar: MatSnackBar,

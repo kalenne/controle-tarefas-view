@@ -48,7 +48,4 @@ export class LoginComponent extends ToastMessage implements OnInit {
     );
   }
 
-  public cadastrarNavegate(): void {
-    this.route.navigate(['/cadastrar/usuario']);
-  }
 }

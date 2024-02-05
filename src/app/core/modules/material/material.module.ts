@@ -17,6 +17,9 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [],
@@ -35,10 +38,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NgxMatTimepickerModule,
     MatRippleModule,
     NgxMatMomentModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_TIME_FORMAT },
+    MatPaginator
   ],
 })
 export class MaterialModule {}

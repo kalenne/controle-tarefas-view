@@ -24,6 +24,10 @@ export class CadastrarTarefaComponent extends ToastMessage implements OnInit {
   matricula = sessionStorage.getItem('matricula');
   prioridades = Object.values(PrioridadeEnum);
 
+  dateMin = new Date().toISOString().slice(0, 16);
+  dateMax = new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString().slice(0, 16);
+
+
   constructor(
     private usuarioService: UsuarioService,
     private tarefaService: TarefaService,
@@ -45,19 +49,21 @@ export class CadastrarTarefaComponent extends ToastMessage implements OnInit {
   }
   ngOnInit(): void {
     if (this.matricula) this.usuarioLogado = this.matricula;
+  
+    console.log(this.dateMax)
   }
 
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
       data: messagem,
-      duration: 3 * 1000
+      duration: 3 * 1000,
     });
   }
 
   public retornarUsuario(): void {
     this.usuario.nome = '';
     let matricula = this.formGroup.value.matricula;
-    
+
     if (matricula) {
       this.usuarioService
         .retornarUsuarioPorMatricula(matricula)
@@ -68,17 +74,10 @@ export class CadastrarTarefaComponent extends ToastMessage implements OnInit {
   }
 
   public salvarTarefa(): void {
+    console.log(this.formGroup.value)
     if (this.formGroup.valid) {
       let tarefa: ITarefa = {
         ...this.formGroup.value,
-        dataInicio: this.datePipe.transform(
-          this.formGroup.value.dataInicio,
-          'dd/MM/yyyy HH:mm:ss'
-        ),
-        dataFinal: this.datePipe.transform(
-          this.formGroup.value.dataFinal,
-          'dd/MM/yyyy HH:mm:ss'
-        ),
       };
       tarefa.autor = this.usuarioLogado;
       this.tarefaService.salvarTarefa(tarefa).subscribe(
