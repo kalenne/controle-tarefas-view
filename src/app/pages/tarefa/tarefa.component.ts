@@ -36,7 +36,7 @@ export class TarefaComponent
   tarefa = {} as ITarefa;
   editTarefa: boolean = true;
 
-  displayedColumns: string[] = ['codigo', 'titulo', 'prioridade', 'status'];
+  displayedColumns: string[] = ['codigo', 'titulo', 'prioridade', 'status', 'acoes'];
   dataSource = new MatTableDataSource<ITarefa>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

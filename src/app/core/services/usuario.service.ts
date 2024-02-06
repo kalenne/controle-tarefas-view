@@ -22,6 +22,10 @@ export class UsuarioService {
     return this.http.get<IResponse<IUsuario>>(`${this.api}/${matricula}`);
   }
 
+  public retornarTodosUsuarios():Observable<IResponse<IUsuario[]>>{
+    return this.http.get<IResponse<IUsuario[]>>(`${this.api}/admin/usuarios`);
+  }
+
   public salvarUsuario(usuario: IUsuario):Observable<IUsuario> {
     return this.http.post<IUsuario>(`${this.api}/salvar`, usuario);
   }

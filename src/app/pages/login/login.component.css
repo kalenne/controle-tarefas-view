@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
   height: 75vh;
-
 }
 
 .login-box {
@@ -12,6 +11,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 .box-container {
   display: flex;
@@ -26,3 +26,4 @@
   width: 600px;
   margin-top: 10%;
 }
+

@@ -8,10 +8,10 @@ import { DisplayAlertComponent } from 'src/app/components/displayalert/displayal
 
 @Component({
   selector: 'app-usuario',
-  templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.css'],
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.css'],
 })
-export class UsuarioComponent extends ToastMessage implements OnInit {
+export class PerfilComponent extends ToastMessage implements OnInit {
   usuario = {} as IUsuario;
   usuarioEditado = {} as IUsuario;
   edit: boolean = false;

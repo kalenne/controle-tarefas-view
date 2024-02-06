@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 import { TarefaComponent } from './pages/tarefa/tarefa.component';
 import { InterceptorModule } from './core/modules/interceptor/interceptor.module';
 import { CpfPipe } from './core/pipes/cpf.pipe';
@@ -21,12 +21,14 @@ import { InputTarefasComponent } from './components/input-tarefas/input-tarefas.
 import { EnumdisplayPipe } from './pipes/enumdisplay.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FiltroTabelaPipe } from './pipes/filtro-tabela.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UsuariosComponent } from './pages/perfil/admin/usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UsuarioComponent,
+    PerfilComponent,
     TarefaComponent,
     CpfPipe,
     CadastrarComponent,
@@ -35,7 +37,8 @@ import { FiltroTabelaPipe } from './pipes/filtro-tabela.pipe';
     NavbarComponent,
     InputTarefasComponent,
     EnumdisplayPipe,
-    FiltroTabelaPipe
+    FiltroTabelaPipe,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { FiltroTabelaPipe } from './pipes/filtro-tabela.pipe';
     BrowserAnimationsModule,
     MaterialModule,
     NgbModule,
+    FontAwesomeModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent],

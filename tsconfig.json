@@ -3,6 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "types": ["jquery"],
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -17,6 +18,7 @@
     "target": "es2017",
     "module": "es2020",
     "strictPropertyInitialization": false,
+   
     "lib": [
       "es2018",
       "dom"
