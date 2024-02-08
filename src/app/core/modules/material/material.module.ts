@@ -43,8 +43,6 @@ import { MatSortModule } from '@angular/material/sort';
     MatSortModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
-    { provide: NGX_MAT_DATE_FORMATS, useValue: DATE_TIME_FORMAT },
     MatPaginator
   ],
 })

@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 import { ITarefa } from 'src/app/core/interface/tarefa';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { RolesEnum } from 'src/app/enums/controle.enum';
-import { switchMap } from 'rxjs/operators';
+import { PrioridadeEnum, RolesEnum } from 'src/app/enums/controle.enum';
+import { startWith, switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
@@ -18,6 +18,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tarefa',
@@ -35,8 +39,16 @@ export class TarefaComponent
     this.tipoUsuarioLogado === RolesEnum.ROLE_ADMIN ? true : false;
   tarefa = {} as ITarefa;
   editTarefa: boolean = true;
+  prioridadeEnum: PrioridadeEnum;
 
-  displayedColumns: string[] = ['codigo', 'titulo', 'prioridade', 'status', 'acoes'];
+  displayedColumns: string[] = [
+    'codigo',
+    'titulo',
+    'prioridade',
+    'status',
+    'inicio',
+    'acoes',
+  ];
   dataSource = new MatTableDataSource<ITarefa>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -47,9 +59,11 @@ export class TarefaComponent
     private router: Router,
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
-    private liveAnnouncer: LiveAnnouncer
+    private liveAnnouncer: LiveAnnouncer,
+    private datePipe: DatePipe
   ) {
     super();
+
   }
 
   ngAfterViewInit() {
@@ -61,6 +75,7 @@ export class TarefaComponent
     this.retornarDadosPorMatricula();
     this.cdr.detectChanges();
   }
+  
 
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
@@ -121,4 +136,28 @@ export class TarefaComponent
       }
     }
   }
+
+  getPrioridadeColor(nivel: PrioridadeEnum): { color: string } {
+    switch (nivel) {
+      case PrioridadeEnum.BAIXO:
+        return { color: '#99FF99' };
+      case PrioridadeEnum.MEDIO:
+        return { color: '#FFD966' };
+      case PrioridadeEnum.ALTO:
+        return { color: '#FFCC99' };
+      case PrioridadeEnum.CRITICO:
+        return { color: '#FF9999' };
+      default:
+        return { color: '#CCCCCC' };
+    }
+  }
+
+  aplicarFiltro(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+
+
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  
 }

@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,13 +16,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DisplayAlertComponent } from './components/displayalert/displayalert.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MaterialModule } from './core/modules/material/material.module';
-import { DatePipe } from '@angular/common';
+import { DatePipe, registerLocaleData } from '@angular/common';
 import { InputTarefasComponent } from './components/input-tarefas/input-tarefas.component';
-import { EnumdisplayPipe } from './pipes/enumdisplay.pipe';
+import { EnumdisplayPipe } from './core/pipes/enumdisplay.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FiltroTabelaPipe } from './pipes/filtro-tabela.pipe';
+import { FiltroTabelaPipe } from './core/pipes/filtro-tabela.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UsuariosComponent } from './pages/perfil/admin/usuarios/usuarios.component';
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { UsuariosComponent } from './pages/perfil/admin/usuarios/usuarios.compon
     NgbModule,
     FontAwesomeModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,
+    { provide: LOCALE_ID, useValue: 'pt-BR' }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

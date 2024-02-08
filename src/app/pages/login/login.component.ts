@@ -5,6 +5,7 @@ import { DisplayAlertComponent } from 'src/app/components/displayalert/displayal
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
 import { ILogin } from 'src/app/core/interface/login';
 import { LoginService } from 'src/app/core/services/login.service';
+import { RolesEnum } from 'src/app/enums/controle.enum';
 
 @Component({
   selector: 'app-login',
@@ -28,16 +29,18 @@ export class LoginComponent extends ToastMessage implements OnInit {
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
       data: messagem,
-      duration: 2 * 1000
+      duration: 2 * 1000,
     });
   }
 
   public autenticar(): void {
     this.service.autenticacao(this.usuario).subscribe(
       (response) => {
-        if(response) {
+        if (response) {
           sessionStorage.setItem('username', response.data[0]);
-          sessionStorage.setItem('role', response.data[1]);
+          let role = this.mapStringParaEnumRole(response.data[1]);
+          sessionStorage.setItem('role', role);
+
           this.abrirToastMessage('Usuario autenticado com sucesso!');
           this.route.navigate(['/tarefa']);
         }
@@ -48,4 +51,14 @@ export class LoginComponent extends ToastMessage implements OnInit {
     );
   }
 
+  mapStringParaEnumRole(str: string): RolesEnum {
+    switch (str) {
+      case 'ROLE_ADMIN':
+        return RolesEnum.ROLE_ADMIN;
+      case 'ROLE_USER':
+        return RolesEnum.ROLE_USER;
+      default:
+        throw new Error('Role desconhecida');
+    }
+  }
 }

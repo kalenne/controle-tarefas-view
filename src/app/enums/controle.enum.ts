@@ -1,13 +1,13 @@
 export enum RolesEnum {
-  ROLE_ADMIN = 'ADMIN',
-  ROLE_USER = 'USER',
+  ROLE_ADMIN = 'ROLE_ADMIN',
+  ROLE_USER = 'ROLE_USER',
 }
 
 export enum PrioridadeEnum {
-	BAIXA = 'BAIXA',
-	MEDIA = 'MEDIA',
-	ALTA = 'ALTA',
-	CRITICA = 'CRITICA'
+	BAIXO = 'BAIXO',
+	MEDIO = 'MEDIO',
+	ALTO = 'ALTO',
+	CRITICO = 'CRITICO'
 }
 
 export enum TipoStatusEnum {

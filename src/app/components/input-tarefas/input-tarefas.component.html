@@ -47,7 +47,7 @@
     <div class="form-outline mb-4" style="width: 50%">
       <label class="form-label">Status:</label>
       <select class="form-control" formControlName="status" [attr.disabled]=" editTarefa ? true : null" >
-        <option *ngFor="let stat of status">
+        <option *ngFor="let stat of status as TipoStatusEnum">
           {{ stat }}
         </option>
       </select>

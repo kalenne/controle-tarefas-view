@@ -20,8 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './input-tarefas.component.html',
   styleUrls: ['./input-tarefas.component.css'],
 })
-export class InputTarefasComponent extends ToastMessage implements OnInit, OnChanges {
- 
+export class InputTarefasComponent extends ToastMessage implements OnChanges {
   @Input()
   tarefa = {} as ITarefa;
 
@@ -36,12 +35,16 @@ export class InputTarefasComponent extends ToastMessage implements OnInit, OnCha
   formGroup: FormGroup;
 
   dateMin = new Date().toISOString().slice(0, 16);
-  dateMax = new Date(new Date().setFullYear(new Date().getFullYear() + 5)).toISOString().slice(0, 16);
+  dateMax = new Date(new Date().setFullYear(new Date().getFullYear() + 5))
+    .toISOString()
+    .slice(0, 16);
 
-  constructor(private usuarioService: UsuarioService,
+  constructor(
+    private usuarioService: UsuarioService,
     private tarefaService: TarefaService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder) {
+    private fb: FormBuilder
+  ) {
     super();
     this.formGroup = this.fb.group({
       matricula: this.fb.control('', [Validators.required]),
@@ -60,18 +63,14 @@ export class InputTarefasComponent extends ToastMessage implements OnInit, OnCha
     if (changes.tarefa) {
       this.dataInicio = this.conversãoDoDatePicker(this.tarefa.dataInicio);
       this.dataFinal = this.conversãoDoDatePicker(this.tarefa.dataFinal);
-      this.valoresTarefas()
+      this.valoresTarefas();
     }
   }
 
-  ngOnInit(): void {
-  
-  }
-  
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
       data: messagem,
-      duration: 3 * 1000
+      duration: 3 * 1000,
     });
   }
 
@@ -85,7 +84,7 @@ export class InputTarefasComponent extends ToastMessage implements OnInit, OnCha
   public retornarUsuario(): void {
     this.usuario.nome = '';
     let matricula = this.formGroup.value.matricula;
-    
+
     if (matricula) {
       this.usuarioService
         .retornarUsuarioPorMatricula(matricula)
@@ -95,7 +94,7 @@ export class InputTarefasComponent extends ToastMessage implements OnInit, OnCha
     }
   }
 
-  valoresTarefas():void {
+  valoresTarefas(): void {
     this.formGroup.get('matricula')?.patchValue(this.tarefa.matricula);
     this.retornarUsuario();
     this.formGroup.get('descricao')?.patchValue(this.tarefa.descricao);
@@ -106,16 +105,17 @@ export class InputTarefasComponent extends ToastMessage implements OnInit, OnCha
     this.formGroup.get('dataInicio')?.patchValue(this.tarefa.dataInicio);
     this.formGroup.get('dataFinal')?.patchValue(this.tarefa.dataFinal);
     this.formGroup.get('codigo')?.patchValue(this.tarefa.codigo);
-
   }
 
-  salvarTarefa():void {
-    if(this.editTarefa == false) {
-       let tarefaExistente: ITarefa = {
+  salvarTarefa(): void {
+    if (this.editTarefa == false) {
+      let tarefaExistente: ITarefa = {
         ...this.formGroup.value
-       }
-        this.tarefaService.salvarTarefaExistente(tarefaExistente).subscribe(() => {})
+        
+      };
+      this.tarefaService.salvarTarefaExistente(tarefaExistente).subscribe(() => {})
     }
   }
 
 }
+
