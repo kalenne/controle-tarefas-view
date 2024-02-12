@@ -9,7 +9,7 @@
             <a class="nav-link" href="/tarefa">Tarefa</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/admin/usuarios">Controle</a>
+            <a *ngIf="tipoUsuario == 'ROLE_ADMIN'" class="nav-link" href="/admin/usuarios">Controle</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/" (click)="destroySession()">Sair</a>

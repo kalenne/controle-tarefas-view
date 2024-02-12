@@ -15,7 +15,7 @@ import { UsuarioService } from 'src/app/core/services/usuario.service';
 export class CadastrarComponent extends ToastMessage {
 
   formGroup: FormGroup;
-  date = new Date().toISOString().slice(0, 16);
+  date = new Date(new Date().getFullYear() - 18, 0, 1).toISOString().split('T')[0];
 
   
   constructor(
@@ -46,7 +46,6 @@ export class CadastrarComponent extends ToastMessage {
       let request: IUsuario = {
         ...this.formGroup.value,
       };
-      console.log(request)
       this.usuarioService.salvarUsuario(request).subscribe(
         () => {
           this.route.navigate(['/']);

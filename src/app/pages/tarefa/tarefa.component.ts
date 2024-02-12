@@ -18,10 +18,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tarefa',
@@ -41,7 +37,7 @@ export class TarefaComponent
   editTarefa: boolean = true;
   prioridadeEnum: PrioridadeEnum;
 
-  displayedColumns: string[] = [
+  colunasTabela: string[] = [
     'codigo',
     'titulo',
     'prioridade',
@@ -59,11 +55,9 @@ export class TarefaComponent
     private router: Router,
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
-    private liveAnnouncer: LiveAnnouncer,
-    private datePipe: DatePipe
+    private liveAnnouncer: LiveAnnouncer
   ) {
     super();
-
   }
 
   ngAfterViewInit() {
@@ -74,8 +68,16 @@ export class TarefaComponent
   ngOnInit(): void {
     this.retornarDadosPorMatricula();
     this.cdr.detectChanges();
+
+    const modalElement = document.querySelector('#modalTarefa');
+
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        this.retornarDadosPorMatricula();
+      });
+    }
+
   }
-  
 
   abrirToastMessage(messagem: string): void {
     this.snackBar.openFromComponent(DisplayAlertComponent, {
@@ -154,10 +156,6 @@ export class TarefaComponent
 
   aplicarFiltro(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-
-
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  
 }

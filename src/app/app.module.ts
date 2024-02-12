@@ -20,10 +20,10 @@ import { DatePipe, registerLocaleData } from '@angular/common';
 import { InputTarefasComponent } from './components/input-tarefas/input-tarefas.component';
 import { EnumdisplayPipe } from './core/pipes/enumdisplay.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FiltroTabelaPipe } from './core/pipes/filtro-tabela.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UsuariosComponent } from './pages/perfil/admin/usuarios/usuarios.component';
 import ptBr from '@angular/common/locales/pt';
+import { InputUsuarioComponent } from './components/input-usuario/input-usuario.component';
 registerLocaleData(ptBr);
 
 @NgModule({
@@ -39,8 +39,8 @@ registerLocaleData(ptBr);
     NavbarComponent,
     InputTarefasComponent,
     EnumdisplayPipe,
-    FiltroTabelaPipe,
-    UsuariosComponent
+    UsuariosComponent,
+    InputUsuarioComponent
   ],
   imports: [
     BrowserModule,

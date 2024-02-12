@@ -5,6 +5,7 @@ import { DisplayAlertComponent } from 'src/app/components/displayalert/displayal
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
 import { ILogin } from 'src/app/core/interface/login';
 import { LoginService } from 'src/app/core/services/login.service';
+import { TipoUsuarioService } from 'src/app/core/services/tipo-usuario.service';
 import { RolesEnum } from 'src/app/enums/controle.enum';
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginComponent extends ToastMessage implements OnInit {
   constructor(
     private service: LoginService,
     private route: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private tipoUsuario: TipoUsuarioService
   ) {
     super();
   }
@@ -38,8 +40,9 @@ export class LoginComponent extends ToastMessage implements OnInit {
       (response) => {
         if (response) {
           sessionStorage.setItem('username', response.data[0]);
-          let role = this.mapStringParaEnumRole(response.data[1]);
+          let role = this.stringParaRolesEnum(response.data[1]);
           sessionStorage.setItem('role', role);
+          this.tipoUsuario.setTipoUsuario(role);
 
           this.abrirToastMessage('Usuario autenticado com sucesso!');
           this.route.navigate(['/tarefa']);
@@ -51,7 +54,7 @@ export class LoginComponent extends ToastMessage implements OnInit {
     );
   }
 
-  mapStringParaEnumRole(str: string): RolesEnum {
+  stringParaRolesEnum(str: string): RolesEnum {
     switch (str) {
       case 'ROLE_ADMIN':
         return RolesEnum.ROLE_ADMIN;

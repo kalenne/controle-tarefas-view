@@ -10,24 +10,41 @@ import { RolesEnum } from 'src/app/enums/controle.enum';
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit, AfterViewInit {
-
   usuariosDados = [] as IUsuario[];
-
-  displayedColumns: string[] = ['matricula', 'nome', 'email', 'roles', 'status'];
+  usuarioSelecionado = {} as IUsuario;
+  editUsuario: boolean = true;
+  matricula = Number(sessionStorage.getItem('matricula'));
+  colunaTabela: string[] = [
+    'matricula',
+    'nome',
+    'email',
+    'roles',
+    'status',
+    'acoes',
+  ];
   dataSource = new MatTableDataSource<IUsuario>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   tipo: RolesEnum;
 
-  constructor(private usuarioService: UsuarioService, private liveAnnouncer: LiveAnnouncer) { }
+  constructor(
+    private usuarioService: UsuarioService,
+    private liveAnnouncer: LiveAnnouncer
+  ) {}
 
   ngOnInit(): void {
     this.retornarUsuarios();
-    
+    const modalElement = document.querySelector('#modalTarefa');
+
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        this.retornarUsuarios();
+      });
+    }
   }
 
   ngAfterViewInit() {
@@ -35,15 +52,14 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  retornarUsuarios():void {
-    this.usuarioService.retornarTodosUsuarios().subscribe(dados => {
+  retornarUsuarios(): void {
+    this.usuarioService.retornarTodosUsuarios().subscribe((dados) => {
       this.usuariosDados = dados.data;
       this.dataSource.data = dados.data;
-      console.log(this.usuariosDados[0].roles?.toString)
-    })
+    });
   }
 
-  announceSortChange(sortState: Sort) {
+  announceSortChange(sortState: Sort): void {
     if (sortState instanceof MatSort) {
       if (sortState.direction) {
         this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
@@ -53,6 +69,12 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  
+  usuSelecionado(usuario: IUsuario): void {
+    this.usuarioSelecionado = usuario;
+  }
 
+  aplicarFiltro(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

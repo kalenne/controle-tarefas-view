@@ -16,6 +16,9 @@ export class PerfilComponent extends ToastMessage implements OnInit {
   usuarioEditado = {} as IUsuario;
   edit: boolean = false;
   formGroup: FormGroup;
+  date:string = new Date(new Date().getFullYear() - 18, 0, 1)
+  .toISOString()
+  .split('T')[0];
 
   constructor(
     private usuarioService: UsuarioService,
@@ -63,7 +66,7 @@ export class PerfilComponent extends ToastMessage implements OnInit {
   public salvarUsuarioEditado(): void {
     if (this.formGroup.valid) {
       this.usuario = { ...this.usuario, ...this.formGroup.value };
-      this.usuarioService.editarUsuario(this.usuario).subscribe(() => {
+      this.usuarioService.editarUsuarioPorEmail(this.usuario).subscribe(() => {
         this.abrirToastMessage('Usuario editado com sucesso!');
         this.retornarUsuario();
         this.edit = !this.edit;

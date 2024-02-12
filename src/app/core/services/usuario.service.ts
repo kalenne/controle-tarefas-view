@@ -30,7 +30,11 @@ export class UsuarioService {
     return this.http.post<IUsuario>(`${this.api}/salvar`, usuario);
   }
 
-  public editarUsuario(usuario: IUsuario):Observable<IUsuario>{
+  public editarUsuarioPorEmail(usuario: IUsuario):Observable<IUsuario>{
     return this.http.put<IUsuario>(`${this.api}/editar`, usuario);
+  }
+
+  public editarUsuarioPorMatricula(matricula:number | undefined, usuario: IUsuario):Observable<IUsuario>{
+    return this.http.put<IUsuario>(`${this.api}/editar/${matricula}`, usuario);
   }
 }

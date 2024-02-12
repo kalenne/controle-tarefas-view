@@ -49,8 +49,6 @@ export class CadastrarTarefaComponent extends ToastMessage implements OnInit {
   }
   ngOnInit(): void {
     if (this.matricula) this.usuarioLogado = this.matricula;
-  
-    console.log(this.dateMax)
   }
 
   abrirToastMessage(messagem: string): void {
@@ -74,7 +72,6 @@ export class CadastrarTarefaComponent extends ToastMessage implements OnInit {
   }
 
   public salvarTarefa(): void {
-    console.log(this.formGroup.value)
     if (this.formGroup.valid) {
       let tarefa: ITarefa = {
         ...this.formGroup.value,
