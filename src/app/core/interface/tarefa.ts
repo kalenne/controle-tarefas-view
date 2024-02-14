@@ -9,7 +9,7 @@ export interface ITarefa {
     titulo: string,
     dataInicio: string,
     dataFinal: string,
-    prioridade: PrioridadeEnum,
+    prioridade: string,
     autor: string
 
 }

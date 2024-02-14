@@ -109,7 +109,7 @@ export class InputTarefasComponent extends ToastMessage implements OnChanges {
   salvarTarefa(): void {
     if (this.editTarefa == false) {
       let tarefaExistente: ITarefa = {
-        ...this.formGroup.value
+        ...this.formGroup.value,
         
       };
       this.tarefaService.salvarTarefaExistente(tarefaExistente).subscribe(() => {})

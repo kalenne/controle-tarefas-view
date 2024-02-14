@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -33,12 +33,15 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private liveAnnouncer: LiveAnnouncer
+    private liveAnnouncer: LiveAnnouncer,
+    private cdr: ChangeDetectorRef
+
   ) {}
 
   ngOnInit(): void {
     this.retornarUsuarios();
-    const modalElement = document.querySelector('#modalTarefa');
+    this.cdr.detectChanges();
+    const modalElement = document.querySelector('#modalUsuario');
 
     if (modalElement) {
       modalElement.addEventListener('hidden.bs.modal', () => {
@@ -53,6 +56,8 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
   }
 
   retornarUsuarios(): void {
+    this.dataSource.data = [];
+
     this.usuarioService.retornarTodosUsuarios().subscribe((dados) => {
       this.usuariosDados = dados.data;
       this.dataSource.data = dados.data;

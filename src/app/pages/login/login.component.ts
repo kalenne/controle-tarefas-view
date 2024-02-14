@@ -40,9 +40,8 @@ export class LoginComponent extends ToastMessage implements OnInit {
       (response) => {
         if (response) {
           sessionStorage.setItem('username', response.data[0]);
-          let role = this.stringParaRolesEnum(response.data[1]);
-          sessionStorage.setItem('role', role);
-          this.tipoUsuario.setTipoUsuario(role);
+          sessionStorage.setItem('role', response.data[1]);
+          this.tipoUsuario.setTipoUsuario(response.data[1]);
 
           this.abrirToastMessage('Usuario autenticado com sucesso!');
           this.route.navigate(['/tarefa']);
@@ -52,16 +51,5 @@ export class LoginComponent extends ToastMessage implements OnInit {
         this.abrirToastMessage(err.error.detalhes);
       }
     );
-  }
-
-  stringParaRolesEnum(str: string): RolesEnum {
-    switch (str) {
-      case 'ROLE_ADMIN':
-        return RolesEnum.ROLE_ADMIN;
-      case 'ROLE_USER':
-        return RolesEnum.ROLE_USER;
-      default:
-        throw new Error('Role desconhecida');
-    }
   }
 }

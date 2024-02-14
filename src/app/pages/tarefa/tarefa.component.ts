@@ -2,7 +2,10 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  ElementRef,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,7 +13,7 @@ import { ITarefa } from 'src/app/core/interface/tarefa';
 import { TarefaService } from 'src/app/core/services/tarefa.service';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { PrioridadeEnum, RolesEnum } from 'src/app/enums/controle.enum';
-import { startWith, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DisplayAlertComponent } from 'src/app/components/displayalert/displayalert.component';
 import { ToastMessage } from 'src/app/components/displayalert/toastMessage';
@@ -48,7 +51,7 @@ export class TarefaComponent
   dataSource = new MatTableDataSource<ITarefa>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  
   constructor(
     private tarefaService: TarefaService,
     private usuarioService: UsuarioService,
@@ -68,7 +71,6 @@ export class TarefaComponent
   ngOnInit(): void {
     this.retornarDadosPorMatricula();
     this.cdr.detectChanges();
-
     const modalElement = document.querySelector('#modalTarefa');
 
     if (modalElement) {
@@ -76,7 +78,8 @@ export class TarefaComponent
         this.retornarDadosPorMatricula();
       });
     }
-
+    
+    
   }
 
   abrirToastMessage(messagem: string): void {
@@ -89,7 +92,6 @@ export class TarefaComponent
   public retornarDadosPorMatricula(): void {
     const usuario = sessionStorage.getItem('username');
     this.tarefaDados = [];
-
     if (usuario) {
       this.usuarioService
         .retornarUsuarioPorEmail(usuario)

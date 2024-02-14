@@ -1,23 +1,24 @@
 export enum RolesEnum {
-  ROLE_ADMIN = 'ROLE_ADMIN',
-  ROLE_USER = 'ROLE_USER',
+  ROLE_ADMIN = 'ADMIN',
+  ROLE_USER = 'USER',
 }
 
 export enum PrioridadeEnum {
-	BAIXO = 'BAIXO',
-	MEDIO = 'MEDIO',
-	ALTO = 'ALTO',
-	CRITICO = 'CRITICO'
+	BAIXO = 'Baixo',
+	MEDIO = 'Médio',
+	ALTO = 'Alto',
+	CRITICO = 'Crítico'
 }
 
 export enum TipoStatusEnum {
-	CRIADO = 'CRIADO', 
-  EM_ANDAMENTO = 'EM_ANDAMENTO', 
-  FINALIZADO = 'FINALIZADO', 
-  CANCELADO = 'CANCELADO'	
+	CRIADO = 'Criado', 
+  EM_ANDAMENTO = 'Em Andamento', 
+  FINALIZADO = 'Finalizado', 
+  CANCELADO = 'Cancelado',
+  VENCIDO = 'Vencido'
 }
 
 export enum UsuarioStatusEnum {
-  ATIVO = 'ATIVO', 
-  INATIVO = 'INATIVO'
+  ATIVO = 'Ativo', 
+  INATIVO = 'Inativo'
 }

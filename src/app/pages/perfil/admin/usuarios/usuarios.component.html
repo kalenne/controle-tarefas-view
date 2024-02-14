@@ -1,4 +1,4 @@
-<div class="modal" id="modalTarefa" tabindex="-1">
+<div class="modal" id="modalUsuario" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header text-center">
@@ -87,7 +87,7 @@
             mat-mini-fab
             color="primary"
             data-bs-toggle="modal"
-            data-bs-target="#modalTarefa"
+            data-bs-target="#modalUsuario"
             (click)="usuSelecionado(usuario)"
             ngbTooltip="Mais informações"
             *ngIf="usuario.matricula == matricula ? false : true "
